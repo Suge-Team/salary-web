@@ -17,7 +17,7 @@
               </a>
             </div>
           </div>
-          <div class="min-w-0 flex-1 md:px-8 lg:px-0 xl:col-span-6">
+          <div class="min-w-0 flex-1 md:px-8 lg:px-0 xl:col-span-5">
             <div class="flex items-center px-6 py-4 md:mx-auto md:max-w-3xl lg:mx-0 lg:max-w-none xl:px-0">
               <div class="w-full">
                 <label for="search" class="sr-only">Search</label>
@@ -46,17 +46,21 @@
               <XMarkIcon v-else class="block h-6 w-6" aria-hidden="true" />
             </PopoverButton>
           </div>
-          <div class="hidden lg:flex lg:justify-end xl:col-span-4">
+          <div class="hidden lg:flex lg:justify-end xl:col-span-5">
             <a
-              href="#"
-              class="inline-flex items-center border-b-2 border-indigo-500 px-1 pt-1 text-sm font-medium text-gray-900 h-100 mr-2"
-              >Dashboard
+              v-for="item in navigation"
+              :key="item.href"
+              :href="item.href"
+              class="inline-flex items-center border-b-2 px-1 pt-1 text-sm font-medium mr-4"
+              :class="
+                item.current
+                  ? 'border-indigo-500 text-gray-900'
+                  : 'border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700'
+              "
+            >
+              {{ item.name }}
             </a>
-            <a
-              href="#"
-              class="inline-flex items-center border-b-2 border-transparent px-1 pt-1 text-sm font-medium text-gray-500 hover:border-gray-300 hover:text-gray-700 mr-2"
-              >About
-            </a>
+
             <div class="flex items-center">
               <a
                 href="#"
@@ -94,7 +98,8 @@ import { MagnifyingGlassIcon } from "@heroicons/vue/20/solid";
 import { Bars3Icon, BellIcon, XMarkIcon } from "@heroicons/vue/24/outline";
 
 const navigation = [
-  { name: "Dashboard", href: "/", current: false },
-  { name: "About", href: "/about", current: false },
+  { name: "Trang chủ", href: "/", current: true },
+  { name: "Lương", href: "/salaries", current: false },
+  { name: "Công ty", href: "/companies", current: false },
 ];
 </script>
