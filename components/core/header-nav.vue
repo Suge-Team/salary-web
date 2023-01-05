@@ -47,10 +47,10 @@
             </PopoverButton>
           </div>
           <div class="hidden lg:flex lg:justify-end xl:col-span-5">
-            <a
+            <nuxt-link
               v-for="item in navigation"
               :key="item.href"
-              :href="item.href"
+              :to="item.href"
               class="inline-flex items-center border-b-2 px-1 pt-1 text-sm font-medium mr-4"
               :class="
                 item.current
@@ -59,7 +59,7 @@
               "
             >
               {{ item.name }}
-            </a>
+            </nuxt-link>
 
             <div class="flex items-center">
               <a
