@@ -1,14 +1,15 @@
 <template>
   <div>
+    <!-- Hot companies -->
     <div class="pb-5 sm:flex sm:items-center sm:justify-between">
       <h3 class="text-2xl font-medium text-gray-900">Công ty hot</h3>
       <div class="mt-3 sm:mt-0 sm:ml-4">
-        <button
-          type="button"
+        <nuxt-link
+          to="/companies"
           class="inline-flex items-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
         >
           Xem tất cả
-        </button>
+        </nuxt-link>
       </div>
     </div>
 
@@ -28,6 +29,33 @@
         </div>
       </div>
     </div>
+
+    <!-- New posts -->
+    <div class="pb-5 sm:flex sm:items-center sm:justify-between mt-8">
+      <h3 class="text-2xl font-medium text-gray-900">Lương mới nhập</h3>
+      <div class="mt-3 sm:mt-0 sm:ml-4">
+        <nuxt-link
+          to="/salaries"
+          class="inline-flex items-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+        >
+          Xem tất cả
+        </nuxt-link>
+      </div>
+    </div>
+
+    <core-table :headers="salaryHeaders" :items="salaryItems">
+      <template #company="{ item }">
+        <span class="font-bold">{{ item.company }}</span>
+      </template>
+
+      <template #tc="{ item }">
+        {{ formatCurrency(item.tc) }}
+      </template>
+
+      <template #postedAt="{ item }">
+        {{ formatDate(item.postedAt) }}
+      </template>
+    </core-table>
   </div>
 </template>
 
@@ -36,8 +64,48 @@ const hotCompanies = [];
 for (let i = 0; i < 10; i++) {
   hotCompanies.push({
     name: `Company #${i}`,
-    median: 100_000_000 + Math.ceil(Math.random() * 100) * 1_000_000,
+    median: formatCurrency(100_000_000 + Math.ceil(Math.random() * 100) * 1_000_000),
     dataCount: Math.ceil(Math.random() * 100),
   });
 }
+
+const salaryHeaders = [
+  {
+    text: "Công ty",
+    value: "company",
+  },
+  {
+    text: "Vị trí",
+    value: "role",
+  },
+  {
+    text: "Số năm kinh nghiệm",
+    value: "yoe",
+  },
+  {
+    text: "Lương năm",
+    value: "tc",
+  },
+  {
+    text: "Ngày đăng",
+    value: "postedAt",
+  },
+];
+
+const salaryItems = [
+  {
+    company: "FPT",
+    role: "Backend Engineer",
+    yoe: 5,
+    tc: 100_000_000,
+    postedAt: "2023-01-05T16:06:00.362Z",
+  },
+  {
+    company: "Vina Game",
+    role: "Backend Engineer",
+    yoe: 4,
+    tc: 200_000_000,
+    postedAt: "2023-01-05T16:06:00.362Z",
+  },
+];
 </script>

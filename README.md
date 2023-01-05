@@ -4,17 +4,12 @@ Look at the [Nuxt 3 documentation](https://nuxt.com/docs/getting-started/introdu
 
 ## Setup
 
+Check required Nodejs version in the `package.json` file and install it.
+
 Make sure to install the dependencies:
 
 ```bash
-# yarn
 yarn install
-
-# npm
-npm install
-
-# pnpm
-pnpm install --shamefully-hoist
 ```
 
 ## Development Server
@@ -22,21 +17,11 @@ pnpm install --shamefully-hoist
 Start the development server on http://localhost:3000
 
 ```bash
-npm run dev
+yarn dev
 ```
 
-## Production
+## UI System
 
-Build the application for production:
+This project uses [TailwindUI](https://tailwindui.com/). Ping @tuanna-hsp for the credential to access the [paid component package](https://tailwindui.com/components#product-application-ui) :)
 
-```bash
-npm run build
-```
-
-Locally preview production build:
-
-```bash
-npm run preview
-```
-
-Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
+TailwindUI is built on top of [TailwindCSS](https://tailwindcss.com/), pls take a look at its documentation too.
