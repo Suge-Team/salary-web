@@ -1,6 +1,6 @@
 <template>
   <!-- When the mobile menu is open, add `overflow-hidden` to the `body` element to prevent double scrollbars -->
-  <Popover as="template" v-slot="{ open }">
+  <Popover v-slot="{ open }" as="template">
     <header
       :class="[open ? 'fixed inset-0 z-40 overflow-y-auto' : '', 'bg-white shadow-sm lg:static lg:overflow-y-visible']"
     >
@@ -49,8 +49,8 @@
           <div class="hidden lg:flex lg:justify-end xl:col-span-5">
             <nuxt-link
               v-for="item in navigation"
-              :key="item.href"
-              :to="item.href"
+              :key="item.to"
+              :to="item.to"
               class="inline-flex items-center border-b-2 px-1 pt-1 text-sm font-medium mr-4"
               :class="
                 item.current
@@ -75,17 +75,17 @@
 
       <PopoverPanel as="nav" class="lg:hidden" aria-label="Global">
         <div class="mx-auto max-w-3xl space-y-1 px-2 pt-2 pb-3 sm:px-4">
-          <a
+          <nuxt-link
             v-for="item in navigation"
-            :key="item.name"
-            :href="item.href"
-            :aria-current="item.current ? 'page' : undefined"
+            :key="item.to"
+            :to="item.to"
             :class="[
               item.current ? 'bg-gray-100 text-gray-900' : 'hover:bg-gray-50',
               'block rounded-md py-2 px-3 text-base font-medium',
             ]"
-            >{{ item.name }}
-          </a>
+          >
+            {{ item.name }}
+          </nuxt-link>
         </div>
       </PopoverPanel>
     </header>
@@ -93,13 +93,17 @@
 </template>
 
 <script setup>
-import { Menu, MenuButton, MenuItem, MenuItems, Popover, PopoverButton, PopoverPanel } from "@headlessui/vue";
+import { Popover, PopoverButton, PopoverPanel } from "@headlessui/vue";
 import { MagnifyingGlassIcon } from "@heroicons/vue/20/solid";
-import { Bars3Icon, BellIcon, XMarkIcon } from "@heroicons/vue/24/outline";
+import { Bars3Icon, XMarkIcon } from "@heroicons/vue/24/outline";
 
-const navigation = [
-  { name: "Trang chủ", href: "/", current: true },
-  { name: "Lương", href: "/salaries", current: false },
-  { name: "Công ty", href: "/companies", current: false },
-];
+const route = useRoute();
+
+const navigation = computed(() => {
+  return [
+    { name: "Trang chủ", to: "/", current: route.path === "/" || route.path === "" },
+    { name: "Lương", to: "/salaries", current: route.path.startsWith("/salaries") },
+    { name: "Công ty", to: "/companies", current: route.path.startsWith("/companies") },
+  ];
+});
 </script>

@@ -25,3 +25,7 @@ yarn dev
 This project uses [TailwindUI](https://tailwindui.com/). Ping @tuanna-hsp for the credential to access the [paid component package](https://tailwindui.com/components#product-application-ui) :)
 
 TailwindUI is built on top of [TailwindCSS](https://tailwindcss.com/), pls take a look at its documentation too.
+
+## VS Code Plugins
+
+Pls install `Volar`, `ESLint` and `Prettier` as the minimum.
