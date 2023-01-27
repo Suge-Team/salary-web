@@ -2,35 +2,43 @@
   <div>
     <!-- Heading -->
     <div class="pb-5 sm:flex sm:items-center sm:justify-between">
-      <h3 class="text-2xl font-medium text-gray-900">Tham khảo lương</h3>
-      <div class="mt-3 sm:mt-0 sm:ml-4">
-        <nuxt-link
-          to="/salaries"
-          class="inline-flex items-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
-        >
-          Nhập lương của bạn
-        </nuxt-link>
-      </div>
+      <h3 class="text-2xl font-medium text-gray-900">{{ company.name }}</h3>
+      <div class="mt-3 sm:mt-0 sm:ml-4"></div>
     </div>
 
-    <core-stat-card :item-count="stats.length">
-      <core-stat-item v-for="item in stats" :key="item.name">
-        <template #title>{{ item.name }}</template>
-        <template #text>{{ item.median }}</template>
+    <core-stat-card :item-count="5">
+      <core-stat-item>
+        <template #title>Lương trung bình</template>
+        <template #text>{{ getMillions(company.median) }}</template>
         <template #subText>triệu</template>
+      </core-stat-item>
+
+      <core-stat-item>
+        <template #title>Thấp nhất</template>
+        <template #text>{{ getMillions(company.min) }}</template>
+        <template #subText>triệu</template>
+      </core-stat-item>
+
+      <core-stat-item>
+        <template #title>Cao nhất</template>
+        <template #text>{{ getMillions(company.max) }}</template>
+        <template #subText>triệu</template>
+      </core-stat-item>
+
+      <core-stat-item>
+        <template #title>YoE trung bình</template>
+        <template #text>{{ company.averageYoe }}</template>
+        <template #subText>năm</template>
+      </core-stat-item>
+
+      <core-stat-item>
+        <template #title>Số lượt đăng</template>
+        <template #text>{{ company.dataCount }}</template>
       </core-stat-item>
     </core-stat-card>
 
-    <!-- Filters -->
-    <div class="flex flex-row gap-4 mb-4 mt-8">
-      <core-text-field v-model="searchQuery" class="basis-1/4" label="Công ty" placeholder="FPT, LINE, etc" />
-      <core-select v-model="selectedRole" class="basis-1/4" label="Vị trí" :items="roleItems" />
-      <core-select v-model="selectedFocus" class="basis-1/4" label="Mảng" :items="focusItems" />
-      <core-text-field v-model.number="yoe" class="basis-1/4" label="Số năm kinh nghiệm" type="number" />
-    </div>
-
     <!-- Salary table -->
-    <core-table :headers="salaryHeaders" :items="salaryItems" @sort-changed="updateSort">
+    <core-table :headers="salaryHeaders" :items="salaryItems" class="mt-4" @sort-changed="updateSort">
       <template #company="{ item }">
         <span class="font-bold">{{ item.company }}</span>
       </template>
@@ -47,6 +55,15 @@
 </template>
 
 <script setup>
+const company = {
+  name: "FPT",
+  median: 100000000,
+  min: 50000000,
+  max: 100000000,
+  dataCount: 100,
+  averageYoe: 5.2,
+};
+
 const salaryHeaders = [
   {
     text: "Công ty",
@@ -125,19 +142,11 @@ const stats = [
   { name: "Top 90%", median: "75" },
 ];
 
-const searchQuery = ref("");
-const selectedRole = ref(roleItems[0]);
-const selectedFocus = ref(focusItems[0]);
-const yoe = ref(null);
 const sortBy = ref(null);
 const sortOrder = ref(null);
 
 const queryParams = computed(() => {
   return {
-    searchQuery: searchQuery.value || undefined,
-    role: selectedRole.value.id,
-    focus: selectedFocus.value.id,
-    yoe: yoe.value || undefined,
     sortBy: sortBy.value || undefined,
     sortOrder: sortOrder.value || undefined,
   };
