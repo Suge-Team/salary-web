@@ -6,3 +6,7 @@ export function formatCurrency(amount) {
     compactDisplay: "short",
   }).format(amount);
 }
+
+export function getMillions(ammount) {
+  return Math.ceil(ammount / 1000000);
+}
