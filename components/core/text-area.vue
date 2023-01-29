@@ -5,21 +5,16 @@
       <span v-if="optional" id="email-optional" class="text-sm text-gray-500">Không bắt buộc</span>
     </div>
 
-    <div class="mt-1 relative">
-      <input
+    <div class="mt-1">
+      <textarea
         :id="name"
-        :type="type"
         :name="name"
-        class="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+        rows="4"
         :placeholder="placeholder"
         :value="modelValue"
-        :required="!optional"
+        class="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
         @input="$emit('update:modelValue', $event.target.value)"
       />
-
-      <div v-if="currencyUnit" class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3">
-        <span id="price-currency" class="text-gray-500 sm:text-sm">{{ currencyUnit }}</span>
-      </div>
     </div>
   </div>
 </template>
@@ -27,11 +22,9 @@
 <script setup>
 const props = defineProps({
   label: String,
-  type: { type: String, default: "text" },
   name: String,
   placeholder: { type: String, default: "" },
   modelValue: [String, Number],
-  currencyUnit: String,
   optional: {
     type: Boolean,
     default: false,

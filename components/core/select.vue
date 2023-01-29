@@ -5,7 +5,9 @@
       <ListboxButton
         class="relative w-full cursor-default rounded-md border border-gray-300 bg-white py-2 pl-3 pr-10 text-left shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500 sm:text-sm"
       >
-        <span class="block truncate">{{ modelValue.text }}</span>
+        <span v-if="modelValue" class="block truncate">{{ modelValue.text }}</span>
+        <!-- Fix a bug that the select height will not be calculated correctly if we provide no selection content initially -->
+        <span v-else class="block truncate invisible">Dummy</span>
         <span class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2">
           <ChevronUpDownIcon class="h-5 w-5 text-gray-400" aria-hidden="true" />
         </span>
