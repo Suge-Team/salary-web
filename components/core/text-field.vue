@@ -11,9 +11,12 @@
         :type="type"
         :name="name"
         class="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+        :class="
+          invalid &&
+          'border-red-300 text-red-900 placeholder-red-300 focus:border-red-500 focus:outline-none focus:ring-red-500'
+        "
         :placeholder="placeholder"
         :value="modelValue"
-        :required="!optional"
         @input="$emit('update:modelValue', $event.target.value)"
       />
 
@@ -36,6 +39,7 @@ const props = defineProps({
     type: Boolean,
     default: false,
   },
+  invalid: Boolean,
 });
 
 const emits = defineEmits(["update:modelValue"]);

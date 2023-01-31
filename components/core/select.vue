@@ -4,6 +4,10 @@
     <div class="relative mt-1">
       <ListboxButton
         class="relative w-full cursor-default rounded-md border border-gray-300 bg-white py-2 pl-3 pr-10 text-left shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500 sm:text-sm"
+        :class="
+          invalid &&
+          'border-red-300 text-red-900 placeholder-red-300 focus:border-red-500 focus:outline-none focus:ring-red-500'
+        "
       >
         <span v-if="modelValue" class="block truncate">{{ modelValue.text }}</span>
         <!-- Fix a bug that the select height will not be calculated correctly if we provide no selection content initially -->
@@ -58,6 +62,7 @@ const props = defineProps({
     type: Array,
     default: () => [],
   },
+  invalid: Boolean,
 });
 
 const emits = defineEmits(["update:modelValue"]);

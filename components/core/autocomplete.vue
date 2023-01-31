@@ -8,6 +8,10 @@
     <div class="relative mt-1">
       <ComboboxInput
         class="w-full rounded-md border border-gray-300 bg-white py-2 pl-3 pr-10 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500 sm:text-sm"
+        :class="
+          invalid &&
+          'border-red-300 text-red-900 placeholder-red-300 focus:border-red-500 focus:outline-none focus:ring-red-500'
+        "
         :display-value="(item) => item"
         @change="updateQuery"
       />
@@ -51,6 +55,7 @@ const props = defineProps({
     type: Boolean,
     default: false,
   },
+  invalid: Boolean,
 });
 
 const emits = defineEmits(["update:modelValue"]);

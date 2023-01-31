@@ -1,6 +1,6 @@
 <template>
   <div>
-    <form class="space-y-8 divide-y divide-gray-200">
+    <form class="space-y-8 divide-y divide-gray-200" @submit.prevent="submitSalary">
       <div class="space-y-8 divide-y divide-gray-200">
         <div>
           <div>
@@ -12,19 +12,34 @@
 
           <div class="mt-6 grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-6">
             <div class="sm:col-span-3">
-              <CoreAutocomplete v-model="companyName" label="Tên công ty" :items="companyNames" />
+              <CoreAutocomplete
+                v-model="companyName"
+                label="Tên công ty"
+                :items="companyNames"
+                :invalid="!!v$.companyName.$error"
+              />
             </div>
 
             <div class="sm:col-span-3">
-              <CoreSelect v-model="city" label="Tỉnh thành" :items="cityItems" />
+              <CoreSelect v-model="city" label="Tỉnh thành" :items="cityItems" :invalid="!!v$.city.$error" />
             </div>
 
             <div class="sm:col-span-3">
-              <CoreAutocomplete v-model="jobTitle" label="Vị trí" :items="companyNames" />
+              <CoreAutocomplete
+                v-model="jobTitle"
+                label="Vị trí"
+                :items="companyNames"
+                :invalid="!!v$.jobTitle.$error"
+              />
             </div>
 
             <div class="sm:col-span-3">
-              <CoreSelect v-model="jobCategory" label="Phân loại" :items="cityItems" />
+              <CoreSelect
+                v-model="jobCategory"
+                label="Phân loại"
+                :items="cityItems"
+                :invalid="!!v$.jobCategory.$error"
+              />
             </div>
 
             <div class="sm:col-span-3">
@@ -36,7 +51,12 @@
             </div>
 
             <div class="sm:col-span-3">
-              <CoreTextField v-model="yearOfExperience" label="Số năm kinh nghiệm" type="number" />
+              <CoreTextField
+                v-model="yearOfExperience"
+                label="Số năm kinh nghiệm"
+                type="number"
+                :invalid="!!v$.yearOfExperience.$error"
+              />
             </div>
 
             <div class="sm:col-span-3">
@@ -44,7 +64,13 @@
             </div>
 
             <div class="sm:col-span-3">
-              <CoreTextField v-model="monthlySalary" label="Lương tháng" type="text" currency-unit="triệu VND" />
+              <CoreTextField
+                v-model="monthlySalary"
+                label="Lương tháng"
+                type="text"
+                currency-unit="triệu VND"
+                :invalid="!!v$.monthlySalary.$error"
+              />
             </div>
 
             <div class="sm:col-span-3">
@@ -97,6 +123,9 @@
 </template>
 
 <script setup>
+import { useVuelidate } from "@vuelidate/core";
+import { required } from "@vuelidate/validators";
+
 const city = ref(null);
 const companyName = ref(null);
 const jobTitle = ref(null);
@@ -124,4 +153,19 @@ const cityItems = [
 ];
 
 const companyNames = ["FPT", "VNG", "Google"];
+
+const rules = {
+  companyName: { required },
+  city: { required },
+  jobTitle: { required },
+  jobCategory: { required },
+  yearOfExperience: { required },
+  monthlySalary: { required },
+};
+const v$ = useVuelidate(rules, { companyName, city, jobTitle, jobCategory, yearOfExperience, monthlySalary });
+
+async function submitSalary() {
+  console.log("submit");
+  await v$.value.$validate();
+}
 </script>
