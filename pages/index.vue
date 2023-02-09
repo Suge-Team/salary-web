@@ -15,17 +15,21 @@
 
     <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-4">
       <div
-        v-for="company in hotCompanies"
+        v-for="company in popularCompanies"
         :key="company.name"
         class="relative flex items-center space-x-3 rounded-lg border border-gray-300 bg-white px-6 py-5 shadow-sm focus-within:ring-2 focus-within:ring-indigo-500 focus-within:ring-offset-2 hover:border-gray-400"
       >
         <div class="min-w-0 flex-1">
-          <a href="#" class="focus:outline-none">
+          <nuxt-link :to="`/companies/${company.id}`" class="focus:outline-none">
             <span class="absolute inset-0" aria-hidden="true" />
-            <h4 class="text-lg font-medium text-gray-900">{{ company.name }}</h4>
-            <p class="truncate text-sm text-gray-500">Lương năm trung bình: {{ company.median }}</p>
-            <p class="truncate text-sm text-gray-500">Số lượt đăng: {{ company.dataCount }}</p>
-          </a>
+            <h4 class="text-lg font-medium text-primary">{{ company.name }}</h4>
+            <p class="truncate text-sm text-gray-500">
+              Lương năm median: <b>{{ formatMillion(company.compensationMedian) }}</b>
+            </p>
+            <p class="truncate text-sm text-gray-500">
+              Số lượt đăng: <b>{{ company.compensationCount }}</b>
+            </p>
+          </nuxt-link>
         </div>
       </div>
     </div>
@@ -43,69 +47,69 @@
       </div>
     </div>
 
-    <core-table :headers="salaryHeaders" :items="salaryItems">
-      <template #company="{ item }">
-        <span class="font-bold">{{ item.company }}</span>
+    <core-table :headers="compensationHeaders" :items="recentCompensations">
+      <template #companyName="{ item }">
+        <nuxt-link :to="`/companies/${item.companyId}`" class="text-primary">{{ item.companyName }}</nuxt-link>
       </template>
 
-      <template #tc="{ item }">
-        {{ formatCurrency(item.tc) }}
+      <template #monthlyBaseSalary="{ item }">
+        <b>{{ formatMillion(item.monthlyBaseSalary) }}</b>
       </template>
 
-      <template #postedAt="{ item }">
-        {{ formatDate(item.postedAt) }}
+      <template #annualExpectedBonus="{ item }">
+        <span v-if="item.annualExpectedBonus > 0">
+          <b>{{ formatMillion(item.annualExpectedBonus) }} </b>
+        </span>
+        <span v-else>-</span>
+      </template>
+
+      <template #totalCompensation="{ item }">
+        <b>{{ formatMillion(item.totalCompensation) }}</b>
+      </template>
+
+      <template #createdAt="{ item }">
+        {{ formatDate(item.createdAt) }}
       </template>
     </core-table>
   </div>
 </template>
 
 <script setup>
-const hotCompanies = [];
-for (let i = 0; i < 10; i++) {
-  hotCompanies.push({
-    name: `Company #${i}`,
-    median: formatCurrency(100_000_000 + Math.ceil(Math.random() * 100) * 1_000_000),
-    dataCount: Math.ceil(Math.random() * 100),
-  });
-}
+const popularCompanies = await fetchPopularCompanies();
+const recentCompensations = await fetchRecentCompensations();
 
-const salaryHeaders = [
+const compensationHeaders = [
   {
     text: "Công ty",
-    value: "company",
+    value: "companyName",
   },
   {
     text: "Vị trí",
-    value: "role",
+    value: "jobTitle",
   },
   {
-    text: "Số năm kinh nghiệm",
-    value: "yoe",
+    text: "Phân loại",
+    value: "jobCategory",
   },
   {
-    text: "Lương năm",
-    value: "tc",
+    text: "Năm kinh nghiệm",
+    value: "yearOfExperience",
+  },
+  {
+    text: "Lương tháng",
+    value: "monthlyBaseSalary",
+  },
+  {
+    text: "Thưởng theo năm",
+    value: "annualExpectedBonus",
+  },
+  {
+    text: "Tổng lương năm",
+    value: "totalCompensation",
   },
   {
     text: "Ngày đăng",
-    value: "postedAt",
-  },
-];
-
-const salaryItems = [
-  {
-    company: "FPT",
-    role: "Backend Engineer",
-    yoe: 5,
-    tc: 100_000_000,
-    postedAt: "2023-01-05T16:06:00.362Z",
-  },
-  {
-    company: "Vina Game",
-    role: "Backend Engineer",
-    yoe: 4,
-    tc: 200_000_000,
-    postedAt: "2023-01-05T16:06:00.362Z",
+    value: "createdAt",
   },
 ];
 </script>
