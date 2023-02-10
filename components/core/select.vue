@@ -3,7 +3,7 @@
     <ListboxLabel v-if="!!label" class="block text-sm font-medium text-gray-700">{{ label }}</ListboxLabel>
     <div class="relative mt-1">
       <ListboxButton
-        class="relative w-full cursor-default rounded-md border border-gray-300 bg-white py-2 pl-3 pr-10 text-left shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500 sm:text-sm"
+        class="relative w-full cursor-pointer rounded-md border border-gray-300 bg-white py-2 pl-3 pr-10 text-left shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500 sm:text-sm"
         :class="
           invalid &&
           'border-red-300 text-red-900 placeholder-red-300 focus:border-red-500 focus:outline-none focus:ring-red-500'
@@ -29,7 +29,7 @@
             <li
               :class="[
                 active ? 'text-white bg-indigo-600' : 'text-gray-900',
-                'relative cursor-default select-none py-2 pl-3 pr-9',
+                'relative cursor-pointer select-none py-2 pl-3 pr-9',
               ]"
             >
               <span :class="[selected ? 'font-semibold' : 'font-normal', 'block truncate']">{{ item.text }}</span>
