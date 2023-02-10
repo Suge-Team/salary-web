@@ -119,7 +119,7 @@ const compensationHeaders = [
 
 const compensationStats = await fetchCompensationStats();
 const stats = [
-  { name: "Lương trung bình", value: compensationStats.mean },
+  { name: "Lương năm trung bình", value: compensationStats.mean },
   { name: "Top 10%", value: compensationStats.tenPercents },
   { name: "Top 50%", value: compensationStats.fiftyPercents },
   { name: "Top 90%", value: compensationStats.ninetyPercents },
