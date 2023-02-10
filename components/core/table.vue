@@ -16,7 +16,7 @@
                     <div class="group inline-flex cursor-pointer" @click.prevent="toggleSort(header.value)">
                       {{ header.text }}
                       <span
-                        class="ml-2 flex-none rounded"
+                        class="ml-2 flex-none rounded h-fit"
                         :class="
                           !sortOrder || sortBy !== header.value
                             ? 'invisible text-gray-400 group-hover:visible group-focus:visible'

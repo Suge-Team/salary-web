@@ -11,7 +11,17 @@ export async function fetchPopularCompanies() {
   return res.data.value.companies;
 }
 
+export async function fetchAllCompensations() {
+  const res = await useFetch(`${apiBaseUrl}/compensations`);
+  return res.data.value.compensations;
+}
+
 export async function fetchRecentCompensations() {
   const res = await useFetch(`${apiBaseUrl}/compensations/recent`);
   return res.data.value.compensations;
+}
+
+export async function fetchCompensationStats() {
+  const res = await useFetch(`${apiBaseUrl}/compensations/stats`);
+  return res.data.value;
 }

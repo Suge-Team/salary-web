@@ -3,6 +3,7 @@
     <dt class="text-base font-normal text-gray-900"><slot name="title" /></dt>
     <dd class="mt-1 flex items-baseline justify-between md:block lg:flex">
       <div class="flex items-baseline text-2xl font-semibold text-indigo-600">
+        <slot name="pre" />
         <slot name="text" />
         <span class="ml-2 text-sm font-medium text-gray-500"><slot name="subText" /></span>
       </div>
