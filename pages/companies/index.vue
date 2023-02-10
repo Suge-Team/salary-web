@@ -3,40 +3,35 @@
     <!-- Heading -->
     <div class="pb-5 sm:flex sm:items-center sm:justify-between">
       <h3 class="text-2xl font-medium text-gray-900">Danh sách công ty</h3>
-      <div class="mt-3 sm:mt-0 sm:ml-4">
-        <nuxt-link
-          to="/salaries"
-          class="inline-flex items-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
-        >
-          Nhập lương của bạn
-        </nuxt-link>
-      </div>
     </div>
 
     <!-- Filters -->
     <div class="flex flex-row gap-4 mb-4">
       <core-text-field v-model="searchQuery" class="basis-1/4" label="Công ty" placeholder="FPT, LINE, etc" />
-      <core-select v-model="selectedRole" class="basis-1/4" label="Vị trí" :items="roleItems" />
     </div>
 
     <!-- Salary table -->
-    <core-table :headers="companyHeaders" :items="companyItems" @sort-changed="updateSort">
-      <template #company="{ item }">
-        <nuxt-link class="font-bold text-indigo-600" :to="`/companies/${item.id}`">{{ item.company }}</nuxt-link>
+    <core-table
+      :headers="companyHeaders"
+      :items="companies"
+      :initial-sort-by="sortBy"
+      :initial-sort-order="sortOrder"
+      @sort-changed="updateSort"
+    >
+      <template #name="{ item }">
+        <nuxt-link class="text-primary" :to="`/companies/${item.id}`">{{ item.name }}</nuxt-link>
       </template>
 
-      <template #median="{ item }">
-        {{ formatCurrency(item.median) }}
+      <template #compensationMedian="{ item }">
+        {{ formatMillion(item.compensationMedian) }}
       </template>
 
-      <template #min="{ item }">
-        {{ formatCurrency(item.min) }}
+      <template #compensationMin="{ item }">
+        {{ formatMillion(item.compensationMin) }}
       </template>
-      <template #max="{ item }">
-        {{ formatCurrency(item.max) }}
-      </template>
-      <template #top10="{ item }">
-        {{ formatCurrency(item.top10) }}
+
+      <template #compensationMax="{ item }">
+        {{ formatMillion(item.compensationMax) }}
       </template>
     </core-table>
   </div>
@@ -46,83 +41,67 @@
 const companyHeaders = [
   {
     text: "Công ty",
-    value: "company",
+    value: "name",
     sortable: true,
   },
   {
-    text: "Lương năm",
-    value: "median",
+    text: "Lương năm median",
+    value: "compensationMedian",
     sortable: true,
   },
   {
     text: "Thấp nhất",
-    value: "min",
+    value: "compensationMin",
     sortable: true,
   },
   {
     text: "Cao nhất",
-    value: "max",
-    sortable: true,
-  },
-  {
-    text: "Top 10%",
-    value: "top10",
+    value: "compensationMax",
     sortable: true,
   },
   {
     text: "Số lượt đăng",
-    value: "dataCount",
+    value: "compensationCount",
     sortable: true,
   },
 ];
 
-const companyItems = [
-  {
-    id: 1,
-    company: "FPT",
-    median: 100000000,
-    min: 50000000,
-    max: 200000000,
-    top10: 150000000,
-    dataCount: 10,
-  },
-];
-
-const roleItems = [
-  {
-    id: 0,
-    text: "Tất cả",
-  },
-  {
-    id: 1,
-    text: "Software Engineer",
-  },
-  {
-    id: 2,
-    text: "Engineering Manager",
-  },
-];
-
 const searchQuery = ref("");
-const selectedRole = ref(roleItems[0]);
-const sortBy = ref(null);
-const sortOrder = ref(null);
+const sortBy = ref("name");
+const sortOrder = ref(SortOrder.ASC);
+
+const allCompanies = await fetchAllCompanies();
+const companies = ref(sortAndFilterCompanies(allCompanies));
 
 const queryParams = computed(() => {
   return {
     searchQuery: searchQuery.value || undefined,
-    role: selectedRole.value.id,
     sortBy: sortBy.value || undefined,
     sortOrder: sortOrder.value || undefined,
   };
 });
 
 watch(queryParams, () => {
-  console.log(queryParams.value);
+  companies.value = sortAndFilterCompanies(allCompanies);
 });
 
-function updateSort({ sortBy, sortOrder }) {
-  sortBy.value = sortBy;
-  sortOrder.value = sortOrder;
+function updateSort(sort) {
+  sortBy.value = sort.sortBy;
+  sortOrder.value = sort.sortOrder;
+}
+
+function sortAndFilterCompanies(allCompanies) {
+  let queryResult = allCompanies;
+  if (searchQuery.value) {
+    queryResult = allCompanies.filter((company) => {
+      return company.name.toLowerCase().includes(searchQuery.value.toLowerCase());
+    });
+  }
+
+  if (sortBy.value) {
+    queryResult = sortCollection(queryResult, sortBy.value, sortOrder.value);
+  }
+
+  return queryResult;
 }
 </script>

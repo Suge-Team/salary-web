@@ -56,12 +56,17 @@
 <script setup>
 import { ChevronUpIcon, ChevronDownIcon } from "@heroicons/vue/20/solid";
 
-const props = defineProps({ headers: Array, items: Array });
+const props = defineProps({
+  headers: Array,
+  items: Array,
+  initialSortBy: { type: String, default: null },
+  initialSortOrder: { type: String, default: null },
+});
 
 const emits = defineEmits(["sortChanged"]);
 
-const sortBy = ref(null);
-const sortOrder = ref(null);
+const sortBy = ref(props.initialSortBy);
+const sortOrder = ref(props.initialSortOrder);
 
 function toggleSort(column) {
   if (sortBy.value !== column) {
