@@ -11,6 +11,11 @@ export async function fetchPopularCompanies() {
   return res.data.value.companies;
 }
 
+export async function fetchCompany(id) {
+  const res = await useFetch(`${apiBaseUrl}/companies/${id}`);
+  return res.data.value;
+}
+
 export async function fetchAllCompensations() {
   const res = await useFetch(`${apiBaseUrl}/compensations`);
   return res.data.value.compensations;
