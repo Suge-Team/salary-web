@@ -1,8 +1,8 @@
 <template>
   <div>
-    <div class="flex justify-between">
+    <div class="flex">
       <label v-if="!!label" :for="name" class="block text-sm font-medium text-gray-700">{{ label }}</label>
-      <span v-if="optional" id="email-optional" class="text-sm text-gray-500">Không bắt buộc</span>
+      <span v-if="optional" id="email-optional" class="text-sm text-gray-500 ml-2">không bắt buộc</span>
     </div>
 
     <div class="mt-1">

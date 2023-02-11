@@ -82,7 +82,7 @@ const compensationHeaders = [
     sortable: true,
   },
   {
-    text: "Vị trí",
+    text: "Chức danh",
     value: "jobTitle",
     sortable: true,
   },
