@@ -6,7 +6,8 @@
           <div>
             <h3 class="text-2xl font-medium text-gray-900">Nhập lương của bạn</h3>
             <p class="mt-1 text-sm text-gray-500">
-              Thông tin điền ở đây (trừ email) sẽ được đăng <b>ẩn danh</b> trên trang web
+              Thông tin điền ở đây (trừ email) sẽ được đăng <b>ẩn danh</b> trên trang web. <br />Cùng nhau xây dựng bộ
+              dữ liệu hữu ích cho tất cả mọi người nhé!
             </p>
           </div>
 
@@ -21,46 +22,12 @@
             </div>
 
             <div class="sm:col-span-3">
-              <CoreSelect v-model="city" label="Tỉnh thành" :items="cityItems" :invalid="!!v$.city.$error" />
-            </div>
-
-            <div class="sm:col-span-3">
-              <CoreAutocomplete
-                v-model="jobTitle"
-                label="Vị trí"
-                :items="companyNames"
-                :invalid="!!v$.jobTitle.$error"
-              />
-            </div>
-
-            <div class="sm:col-span-3">
-              <CoreSelect
-                v-model="jobCategory"
-                label="Phân loại"
-                :items="cityItems"
-                :invalid="!!v$.jobCategory.$error"
-              />
-            </div>
-
-            <div class="sm:col-span-3">
-              <CoreAutocomplete v-model="jobFocus" label="Chuyên môn" :items="companyNames" optional />
-            </div>
-
-            <div class="sm:col-span-3">
-              <CoreAutocomplete v-model="level" label="Cấp bậc" :items="companyNames" optional />
-            </div>
-
-            <div class="sm:col-span-3">
               <CoreTextField
                 v-model="yearOfExperience"
                 label="Số năm kinh nghiệm"
                 type="number"
                 :invalid="!!v$.yearOfExperience.$error"
               />
-            </div>
-
-            <div class="sm:col-span-3">
-              <CoreTextField v-model="yearAtCompany" label="Số năm ở công ty" type="number" optional />
             </div>
 
             <div class="sm:col-span-3">
@@ -75,18 +42,61 @@
 
             <div class="sm:col-span-3">
               <CoreTextField
-                v-model="annualBonus"
-                label="Bonus theo năm"
+                v-model="annualExpectedBonus"
+                label="Thưởng theo năm"
                 type="text"
                 currency-unit="triệu VND"
-                optional
+                placeholder="Tính cả lương tháng 13, v.v"
+                :invalid="!!v$.annualExpectedBonus.$error"
               />
+            </div>
+
+            <div class="sm:col-span-3">
+              <CoreAutocomplete
+                v-model="jobTitle"
+                label="Chức danh"
+                :items="jobTitles"
+                :invalid="!!v$.jobTitle.$error"
+                placeholder="VD: Senior Software Engineer 2"
+                @focus="fetchJobTitles"
+              />
+            </div>
+
+            <div class="sm:col-span-3">
+              <CoreSelect
+                v-model="jobCategory"
+                label="Phân loại công việc"
+                :items="categoryItems"
+                :invalid="!!v$.jobCategory.$error"
+              />
+            </div>
+
+            <div class="sm:col-span-3">
+              <CoreSelect v-model="city" label="Tỉnh thành" :items="cityItems" :invalid="!!v$.city.$error" />
+            </div>
+
+            <div class="sm:col-span-3">
+              <CoreTextField
+                v-model="email"
+                label="Email"
+                type="email"
+                optional
+                placeholder="Email để liên lạc với bạn khi cần thiết"
+              />
+            </div>
+
+            <div class="sm:col-span-3">
+              <CoreSelect v-model="jobFocus" label="Chuyên môn" :items="focusItems" optional />
+            </div>
+
+            <div class="sm:col-span-3">
+              <CoreTextField v-model="yearAtCompany" label="Số năm ở công ty" type="number" optional />
             </div>
 
             <div class="sm:col-span-3">
               <CoreTextField
                 v-model="signingBonus"
-                label="Bonus ký hợp đồng"
+                label="Signing bonus"
                 type="text"
                 currency-unit="triệu VND"
                 optional
@@ -94,11 +104,18 @@
             </div>
 
             <div class="sm:col-span-3">
-              <CoreTextField v-model="email" label="Email" type="email" optional />
+              <CoreAutocomplete
+                v-model="level"
+                label="Cấp bậc / Rank"
+                :items="levels"
+                optional
+                placeholder="Nếu công ty có hệ thống cấp bậc"
+                @focus="fetchLevels"
+              />
             </div>
 
             <div class="sm:col-span-6">
-              <CoreTextArea v-model="bonusMemo" label="Ghi chú thêm về bonus" optional />
+              <CoreTextArea v-model="bonusMemo" label="Ghi chú thêm về lương thưởng" optional />
             </div>
 
             <div class="sm:col-span-6">
@@ -119,41 +136,46 @@
         </div>
       </div>
     </form>
+
+    <CoreDialogConfirm :open="openConfirmDialog" title="Kudos to you" @confirm="onConfirm">
+      Bọn mình đã lưu thông tin và sẽ review sớm nhất có thể. Cảm ơn bạn nhé!
+    </CoreDialogConfirm>
   </div>
 </template>
 
 <script setup>
 import { useVuelidate } from "@vuelidate/core";
-import { required } from "@vuelidate/validators";
+import { required, minLength } from "@vuelidate/validators";
+
+const router = useRouter();
 
 const city = ref(null);
 const companyName = ref(null);
 const jobTitle = ref(null);
 const jobCategory = ref(null);
 const jobFocus = ref(null);
-const level = ref(null);
 const yearOfExperience = ref(null);
 const yearAtCompany = ref(null);
 const monthlySalary = ref(null);
-const annualBonus = ref(null);
+const annualExpectedBonus = ref(null);
 const signingBonus = ref(null);
 const bonusMemo = ref(null);
+const level = ref(null);
 const otherBenefits = ref(null);
 const email = ref(null);
 
-const cityItems = [
-  {
-    id: "Ha Noi",
-    text: "Ha Noi",
-  },
-  {
-    id: "tp HCM",
-    text: "tp HCM",
-  },
-];
+const openConfirmDialog = ref(false);
 
-const companyNames = ["FPT", "VNG", "Google"];
+const jobTitles = ref([]);
+const levels = ref([]);
 
+const categoryItems = jobCategories.map((category, index) => ({ id: index, text: category }));
+const focusItems = jobFocuses.map((focus, index) => ({ id: index, text: focus }));
+
+const companies = await fetchAllCompanies();
+const companyNames = companies.map((company) => company.name);
+
+const cityItems = cities.map((city, index) => ({ id: index, text: city }));
 const rules = {
   companyName: { required },
   city: { required },
@@ -161,11 +183,60 @@ const rules = {
   jobCategory: { required },
   yearOfExperience: { required },
   monthlySalary: { required },
+  annualExpectedBonus: { minLength: minLength(1) },
 };
 const v$ = useVuelidate(rules, { companyName, city, jobTitle, jobCategory, yearOfExperience, monthlySalary });
 
 async function submitSalary() {
-  console.log("submit");
-  await v$.value.$validate();
+  const result = await v$.value.$validate();
+  if (result) {
+    await createSalary({
+      companyName: companyName.value,
+      city: city.value.text,
+      jobTitle: jobTitle.value,
+      jobCategory: jobCategory.value.text,
+      jobFocus: jobFocus.value?.text || undefined,
+      yearOfExperience: parseInt(yearOfExperience.value),
+      yearAtCompany: yearAtCompany.value ? parseInt(yearAtCompany.value) : undefined,
+      monthlyBaseSalary: parseInt(monthlySalary.value),
+      annualExpectedBonus: parseInt(annualExpectedBonus.value) || 0,
+      signingBonus: signingBonus.value ? parseInt(signingBonus.value) : undefined,
+      bonusMemo: bonusMemo.value || undefined,
+      level: level.value || undefined,
+      otherBenefits: otherBenefits.value || undefined,
+      email: email.value || undefined,
+    });
+
+    openConfirmDialog.value = true;
+  }
+}
+
+async function fetchJobTitles() {
+  if (!companyName.value) return;
+
+  const company = companies.find((company) => company.name === companyName.value);
+  if (company) {
+    const companyDetail = await fetchCompany(company.id);
+    jobTitles.value = companyDetail.compensations.map((compensation) => compensation.jobTitle);
+  } else {
+    jobTitles.value = [];
+  }
+}
+
+async function fetchLevels() {
+  if (!companyName.value) return;
+
+  const company = companies.find((company) => company.name === companyName.value);
+  if (company) {
+    const companyDetail = await fetchCompany(company.id);
+    levels.value = companyDetail.compensations.map((compensation) => compensation.level);
+  } else {
+    levels.value = [];
+  }
+}
+
+async function onConfirm() {
+  openConfirmDialog.value = false;
+  router.push("/");
 }
 </script>

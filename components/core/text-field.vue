@@ -1,8 +1,8 @@
 <template>
   <div>
-    <div class="flex justify-between">
+    <div class="flex">
       <label v-if="!!label" :for="name" class="block text-sm font-medium text-gray-700">{{ label }}</label>
-      <span v-if="optional" id="email-optional" class="text-sm text-gray-500">Không bắt buộc</span>
+      <span v-if="optional" id="email-optional" class="text-sm text-gray-500 ml-2">không bắt buộc</span>
     </div>
 
     <div class="mt-1 relative">
@@ -18,6 +18,7 @@
         :placeholder="placeholder"
         :value="modelValue"
         @input="$emit('update:modelValue', $event.target.value)"
+        @focus="$emit('focus')"
       />
 
       <div v-if="currencyUnit" class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3">
@@ -42,5 +43,5 @@ const props = defineProps({
   invalid: Boolean,
 });
 
-const emits = defineEmits(["update:modelValue"]);
+const emits = defineEmits(["update:modelValue", "focus"]);
 </script>

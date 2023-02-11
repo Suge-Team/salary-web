@@ -1,8 +1,8 @@
 <template>
   <Combobox v-model="selectedItem" as="div">
-    <div class="flex justify-between">
+    <div class="flex">
       <ComboboxLabel v-if="label" class="block text-sm font-medium text-gray-700">{{ label }}</ComboboxLabel>
-      <span v-if="optional" id="email-optional" class="text-sm text-gray-500">Không bắt buộc</span>
+      <span v-if="optional" id="email-optional" class="text-sm text-gray-500 ml-2">không bắt buộc</span>
     </div>
 
     <div class="relative mt-1">
@@ -13,7 +13,9 @@
           'border-red-300 text-red-900 placeholder-red-300 focus:border-red-500 focus:outline-none focus:ring-red-500'
         "
         :display-value="(item) => item"
+        :placeholder="placeholder"
         @change="updateQuery"
+        @focus="$emit('focus')"
       />
 
       <ComboboxOptions
@@ -55,10 +57,11 @@ const props = defineProps({
     type: Boolean,
     default: false,
   },
+  placeholder: { type: String, default: "" },
   invalid: Boolean,
 });
 
-const emits = defineEmits(["update:modelValue"]);
+const emits = defineEmits(["update:modelValue", "focus"]);
 
 const query = ref("");
 const selectedItem = ref(null);

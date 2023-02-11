@@ -78,7 +78,7 @@ const company = await fetchCompany(route.params.id);
 
 const compensationHeaders = [
   {
-    text: "Vị trí",
+    text: "Chức danh",
     value: "jobTitle",
     sortable: true,
   },

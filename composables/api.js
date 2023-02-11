@@ -30,3 +30,10 @@ export async function fetchCompensationStats() {
   const res = await useFetch(`${apiBaseUrl}/compensations/stats`);
   return res.data.value;
 }
+
+export async function createSalary(data) {
+  await $fetch(`${apiBaseUrl}/compensations`, {
+    method: "POST",
+    body: data,
+  });
+}

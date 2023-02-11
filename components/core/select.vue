@@ -1,6 +1,9 @@
 <template>
   <Listbox :model-value="modelValue" as="div" @update:model-value="$emit('update:modelValue', $event)">
-    <ListboxLabel v-if="!!label" class="block text-sm font-medium text-gray-700">{{ label }}</ListboxLabel>
+    <div class="flex">
+      <ListboxLabel v-if="!!label" class="block text-sm font-medium text-gray-700">{{ label }}</ListboxLabel>
+      <span v-if="optional" id="email-optional" class="text-sm text-gray-500 ml-2">không bắt buộc</span>
+    </div>
     <div class="relative mt-1">
       <ListboxButton
         class="relative w-full cursor-pointer rounded-md border border-gray-300 bg-white py-2 pl-3 pr-10 text-left shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500 sm:text-sm"
@@ -63,6 +66,7 @@ const props = defineProps({
     default: () => [],
   },
   invalid: Boolean,
+  optional: Boolean,
 });
 
 const emits = defineEmits(["update:modelValue"]);

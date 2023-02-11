@@ -84,7 +84,7 @@ const compensationHeaders = [
     value: "companyName",
   },
   {
-    text: "Vị trí",
+    text: "Chức danh",
     value: "jobTitle",
   },
   {
