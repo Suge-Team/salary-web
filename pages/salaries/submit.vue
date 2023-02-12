@@ -76,31 +76,7 @@
             </div>
 
             <div class="sm:col-span-3">
-              <CoreTextField
-                v-model="email"
-                label="Email"
-                type="email"
-                optional
-                placeholder="Email để liên lạc với bạn khi cần thiết"
-              />
-            </div>
-
-            <div class="sm:col-span-3">
               <CoreSelect v-model="jobFocus" label="Chuyên môn" :items="focusItems" optional />
-            </div>
-
-            <div class="sm:col-span-3">
-              <CoreTextField v-model="yearAtCompany" label="Số năm ở công ty" type="number" optional />
-            </div>
-
-            <div class="sm:col-span-3">
-              <CoreTextField
-                v-model="signingBonus"
-                label="Signing bonus"
-                type="text"
-                currency-unit="triệu VND"
-                optional
-              />
             </div>
 
             <div class="sm:col-span-3">
@@ -114,12 +90,32 @@
               />
             </div>
 
+            <div class="sm:col-span-3">
+              <CoreTextField
+                v-model="signingBonus"
+                label="Signing bonus"
+                type="text"
+                currency-unit="triệu VND"
+                optional
+              />
+            </div>
+
             <div class="sm:col-span-6">
               <CoreTextArea v-model="bonusMemo" label="Ghi chú thêm về lương thưởng" optional />
             </div>
 
             <div class="sm:col-span-6">
               <CoreTextArea v-model="otherBenefits" label="Quyền lợi khác" optional />
+            </div>
+
+            <div class="sm:col-span-3">
+              <CoreTextField
+                v-model="email"
+                label="Email"
+                type="email"
+                optional
+                placeholder="Bọn mình có thể liên lạc để xác nhận thông tin"
+              />
             </div>
           </div>
         </div>
@@ -129,7 +125,7 @@
         <div class="flex justify-end">
           <button
             type="submit"
-            class="ml-3 inline-flex justify-center rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+            class="ml-3 inline-flex justify-center rounded-md border border-transparent bg-primary py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-primary-darker focus:outline-none focus:ring-2 focus:ring-primary-lighter focus:ring-offset-2"
           >
             Gửi thông tin lương
           </button>
@@ -155,7 +151,6 @@ const jobTitle = ref(null);
 const jobCategory = ref(null);
 const jobFocus = ref(null);
 const yearOfExperience = ref(null);
-const yearAtCompany = ref(null);
 const monthlySalary = ref(null);
 const annualExpectedBonus = ref(null);
 const signingBonus = ref(null);
@@ -197,7 +192,6 @@ async function submitSalary() {
       jobCategory: jobCategory.value.text,
       jobFocus: jobFocus.value?.text || undefined,
       yearOfExperience: parseInt(yearOfExperience.value),
-      yearAtCompany: yearAtCompany.value ? parseInt(yearAtCompany.value) : undefined,
       monthlyBaseSalary: parseInt(monthlySalary.value),
       annualExpectedBonus: parseInt(annualExpectedBonus.value) || 0,
       signingBonus: signingBonus.value ? parseInt(signingBonus.value) : undefined,

@@ -1,17 +1,22 @@
 <template>
   <Combobox v-model="selectedItem" as="div">
-    <div class="flex">
-      <ComboboxLabel v-if="label" class="block text-sm font-medium text-gray-700">{{ label }}</ComboboxLabel>
+    <div v-if="label" class="flex">
+      <ComboboxLabel class="block text-sm font-medium text-gray-700">{{ label }}</ComboboxLabel>
       <span v-if="optional" id="email-optional" class="text-sm text-gray-500 ml-2">không bắt buộc</span>
     </div>
 
-    <div class="relative mt-1">
+    <div class="relative" :class="{ 'mt-1': !!label }">
+      <div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
+        <slot name="icon" />
+      </div>
+
       <ComboboxInput
-        class="w-full rounded-md border border-gray-300 bg-white py-2 pl-3 pr-10 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500 sm:text-sm"
-        :class="
-          invalid &&
-          'border-red-300 text-red-900 placeholder-red-300 focus:border-red-500 focus:outline-none focus:ring-red-500'
-        "
+        class="w-full rounded-md border border-gray-300 bg-white py-2 pl-3 pr-10 shadow-sm focus:border-primary-lighter focus:outline-none focus:ring-1 focus:ring-primary-lighter sm:text-sm"
+        :class="{
+          'border-red-300 text-red-900 placeholder-red-300 focus:border-red-500 focus:outline-none focus:ring-red-500':
+            invalid,
+          'pl-10': !!$slots.icon,
+        }"
         :display-value="(item) => item"
         :placeholder="placeholder"
         @change="updateQuery"
@@ -29,7 +34,7 @@
           <li
             :class="[
               'relative cursor-default select-none py-2 pl-3 pr-9',
-              active ? 'bg-indigo-600 text-white' : 'text-gray-900',
+              active ? 'bg-primary text-white' : 'text-gray-900',
             ]"
           >
             <span class="block truncate">

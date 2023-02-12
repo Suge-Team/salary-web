@@ -3,6 +3,7 @@ export default defineNuxtConfig({
   runtimeConfig: {
     public: {
       apiBaseUrl: process.env.API_BASE_URL,
+      gaMeasurementId: process.env.GA_MEASUREMENT_ID,
     },
   },
   ssr: false,
