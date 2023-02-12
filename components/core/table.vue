@@ -36,7 +36,7 @@
             </thead>
 
             <tbody class="divide-y divide-gray-200">
-              <tr v-for="(item, index) in items" :key="index">
+              <tr v-for="(item, index) in displayedItems" :key="index">
                 <td
                   v-for="header in headers"
                   :key="header.value"
@@ -47,6 +47,12 @@
               </tr>
             </tbody>
           </table>
+          <CorePagination
+            :total="items.length"
+            :current-page="currentPage"
+            :per-page="perPage"
+            @change-page="changePage"
+          />
         </div>
       </div>
     </div>
@@ -58,15 +64,30 @@ import { ChevronUpIcon, ChevronDownIcon } from "@heroicons/vue/20/solid";
 
 const props = defineProps({
   headers: Array,
-  items: Array,
+  items: {
+    type: Array,
+    default: () => [],
+  },
+  perPage: {
+    type: Number,
+    default: 20,
+  },
   initialSortBy: { type: String, default: null },
   initialSortOrder: { type: String, default: null },
 });
 
 const emits = defineEmits(["sortChanged"]);
 
+const currentPage = ref(1);
 const sortBy = ref(props.initialSortBy);
 const sortOrder = ref(props.initialSortOrder);
+
+const displayedItems = computed(() => {
+  const start = (currentPage.value - 1) * props.perPage;
+  const end = start + props.perPage;
+
+  return props.items.slice(start, end);
+});
 
 function toggleSort(column) {
   if (sortBy.value !== column) {
@@ -80,5 +101,9 @@ function toggleSort(column) {
   }
 
   emits("sortChanged", { sortBy: sortBy.value, sortOrder: sortOrder.value });
+}
+
+function changePage(page) {
+  currentPage.value = page;
 }
 </script>
