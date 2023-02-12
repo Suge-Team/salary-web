@@ -23,4 +23,10 @@ export default defineNuxtConfig({
     },
     useStylesheet: false,
   },
+  app: {
+    head: {
+      title: 'Lương Tháng',
+      link: [{rel: 'icon', type: 'image/png', href: "favicon.png"}]
+    }
+  }
 });
