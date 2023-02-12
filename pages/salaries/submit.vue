@@ -205,6 +205,7 @@ async function submitSalary() {
       level: level.value || undefined,
       otherBenefits: otherBenefits.value || undefined,
       email: email.value || undefined,
+      deviceId: getDeviceId(),
     });
 
     openConfirmDialog.value = true;
