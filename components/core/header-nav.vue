@@ -9,7 +9,7 @@
           <div class="flex md:absolute md:inset-y-0 md:left-0 lg:static xl:col-span-2">
             <div class="flex flex-shrink-0 items-center">
               <nuxt-link to="/">
-                <img class="block h-16 w-auto pb-1" src="~/assets/images/logo.svg" alt="Your Company" />
+                <img class="block h-10 w-auto pb-1" src="~/assets/images/logo.svg" alt="Your Company" />
               </nuxt-link>
             </div>
           </div>
