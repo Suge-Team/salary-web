@@ -16,26 +16,18 @@
           <div class="min-w-0 flex-1 md:px-8 lg:px-0 xl:col-span-5">
             <div class="flex items-center px-6 py-4 md:mx-auto md:max-w-3xl lg:mx-0 lg:max-w-none xl:px-0">
               <div class="w-full">
-                <label for="search" class="sr-only">Search</label>
-                <div class="relative">
-                  <div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
+                <CoreAutocomplete v-model="companyName" placeholder="Tìm công ty" :items="companyNames">
+                  <template #icon>
                     <MagnifyingGlassIcon class="h-5 w-5 text-gray-400" aria-hidden="true" />
-                  </div>
-                  <input
-                    id="search"
-                    name="search"
-                    class="block w-full rounded-md border border-gray-300 bg-white py-2 pl-10 pr-3 text-sm placeholder-gray-500 focus:border-indigo-500 focus:text-gray-900 focus:placeholder-gray-400 focus:outline-none focus:ring-1 focus:ring-indigo-500 sm:text-sm"
-                    placeholder="Tìm công ty"
-                    type="search"
-                  />
-                </div>
+                  </template>
+                </CoreAutocomplete>
               </div>
             </div>
           </div>
           <div class="flex items-center md:absolute md:inset-y-0 md:right-0 lg:hidden">
             <!-- Mobile menu button -->
             <PopoverButton
-              class="-mx-2 inline-flex items-center justify-center rounded-md p-2 text-gray-400 hover:bg-gray-100 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500"
+              class="-mx-2 inline-flex items-center justify-center rounded-md p-2 text-gray-400 hover:bg-gray-100 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-primary-lighter"
             >
               <span class="sr-only">Open menu</span>
               <Bars3Icon v-if="!open" class="block h-6 w-6" aria-hidden="true" />
@@ -50,7 +42,7 @@
               class="inline-flex items-center border-b-2 px-1 pt-1 text-sm font-medium mr-4"
               :class="
                 item.current
-                  ? 'border-indigo-500 text-gray-900'
+                  ? 'border-primary-lighter text-gray-900'
                   : 'border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700'
               "
             >
@@ -60,7 +52,7 @@
             <div class="flex items-center">
               <nuxt-link
                 to="/salaries/submit"
-                class="ml-6 inline-flex items-center rounded-md border border-transparent bg-indigo-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+                class="ml-6 inline-flex items-center rounded-md border border-transparent bg-primary px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-primary-darker focus:outline-none focus:ring-2 focus:ring-primary-lighter focus:ring-offset-2"
               >
                 Nhập lương
               </nuxt-link>
@@ -94,6 +86,7 @@ import { MagnifyingGlassIcon } from "@heroicons/vue/20/solid";
 import { Bars3Icon, XMarkIcon } from "@heroicons/vue/24/outline";
 
 const route = useRoute();
+const router = useRouter();
 
 const navigation = computed(() => {
   return [
@@ -101,5 +94,19 @@ const navigation = computed(() => {
     { name: "Lương", to: "/salaries", current: route.path.startsWith("/salaries") },
     { name: "Công ty", to: "/companies", current: route.path.startsWith("/companies") },
   ];
+});
+
+const companyName = ref(null);
+
+const companies = await fetchAllCompanies();
+const companyNames = companies.map((company) => company.name);
+
+watch(companyName, (value) => {
+  if (value) {
+    const company = companies.find((company) => company.name === value);
+    if (company) {
+      router.push(`/companies/${company.id}`);
+    }
+  }
 });
 </script>

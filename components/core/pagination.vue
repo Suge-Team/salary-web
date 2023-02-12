@@ -46,7 +46,7 @@
             <ChevronLeftIcon class="h-5 w-5" aria-hidden="true" />
           </a>
 
-          <!-- Current: "z-10 bg-indigo-50 border-indigo-500 text-indigo-600", Default: "bg-white border-gray-300 text-gray-500 hover:bg-gray-50" -->
+          <!-- Current: "z-10 bg-indigo-50 border-primary-lighter text-primary", Default: "bg-white border-gray-300 text-gray-500 hover:bg-gray-50" -->
           <template v-for="(page, index) in pages">
             <span
               v-if="page === '...'"
@@ -59,7 +59,7 @@
               :key="page + 'active'"
               href="#"
               aria-current="page"
-              class="relative z-10 inline-flex items-center border border-indigo-500 bg-indigo-50 px-4 py-2 text-sm font-medium text-indigo-600 focus:z-20"
+              class="relative z-10 inline-flex items-center border border-primary-lighter bg-indigo-50 px-4 py-2 text-sm font-medium text-primary focus:z-20"
               >{{ page }}</a
             >
             <a

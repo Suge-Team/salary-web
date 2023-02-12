@@ -6,7 +6,7 @@
       <div class="mt-3 sm:mt-0 sm:ml-4">
         <nuxt-link
           to="/companies"
-          class="inline-flex items-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+          class="inline-flex items-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-primary-lighter focus:ring-offset-2"
         >
           Xem tất cả
         </nuxt-link>
@@ -17,7 +17,7 @@
       <div
         v-for="company in popularCompanies"
         :key="company.name"
-        class="relative flex items-center space-x-3 rounded-lg border border-gray-300 bg-white px-6 py-5 shadow-sm focus-within:ring-2 focus-within:ring-indigo-500 focus-within:ring-offset-2 hover:border-gray-400"
+        class="relative flex items-center space-x-3 rounded-lg border border-gray-300 bg-white px-6 py-5 shadow-sm focus-within:ring-2 focus-within:ring-primary-lighter focus-within:ring-offset-2 hover:border-gray-400"
       >
         <div class="min-w-0 flex-1">
           <nuxt-link :to="`/companies/${company.id}`" class="focus:outline-none">
@@ -40,7 +40,7 @@
       <div class="mt-3 sm:mt-0 sm:ml-4">
         <nuxt-link
           to="/salaries"
-          class="inline-flex items-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+          class="inline-flex items-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-primary-lighter focus:ring-offset-2"
         >
           Xem tất cả
         </nuxt-link>

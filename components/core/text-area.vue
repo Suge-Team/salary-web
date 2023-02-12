@@ -12,7 +12,7 @@
         rows="4"
         :placeholder="placeholder"
         :value="modelValue"
-        class="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+        class="block w-full rounded-md border-gray-300 shadow-sm focus:border-primary-lighter focus:ring-primary-lighter sm:text-sm"
         @input="$emit('update:modelValue', $event.target.value)"
       />
     </div>

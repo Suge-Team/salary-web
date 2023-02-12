@@ -10,7 +10,7 @@
         :id="name"
         :type="type"
         :name="name"
-        class="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+        class="block w-full rounded-md border-gray-300 shadow-sm focus:border-primary-lighter focus:ring-primary-lighter sm:text-sm"
         :class="
           invalid &&
           'border-red-300 text-red-900 placeholder-red-300 focus:border-red-500 focus:outline-none focus:ring-red-500'

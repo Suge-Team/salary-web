@@ -6,7 +6,7 @@
     </div>
     <div class="relative mt-1">
       <ListboxButton
-        class="relative w-full cursor-pointer rounded-md border border-gray-300 bg-white py-2 pl-3 pr-10 text-left shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500 sm:text-sm"
+        class="relative w-full cursor-pointer rounded-md border border-gray-300 bg-white py-2 pl-3 pr-10 text-left shadow-sm focus:border-primary-lighter focus:outline-none focus:ring-1 focus:ring-primary-lighter sm:text-sm"
         :class="
           invalid &&
           'border-red-300 text-red-900 placeholder-red-300 focus:border-red-500 focus:outline-none focus:ring-red-500'
@@ -31,7 +31,7 @@
           <ListboxOption v-for="item in items" :key="item.id" v-slot="{ active, selected }" as="template" :value="item">
             <li
               :class="[
-                active ? 'text-white bg-indigo-600' : 'text-gray-900',
+                active ? 'text-white bg-primary' : 'text-gray-900',
                 'relative cursor-pointer select-none py-2 pl-3 pr-9',
               ]"
             >
@@ -39,10 +39,7 @@
 
               <span
                 v-if="selected"
-                :class="[
-                  active ? 'text-white' : 'text-indigo-600',
-                  'absolute inset-y-0 right-0 flex items-center pr-4',
-                ]"
+                :class="[active ? 'text-white' : 'text-primary', 'absolute inset-y-0 right-0 flex items-center pr-4']"
               >
                 <CheckIcon class="h-5 w-5" aria-hidden="true" />
               </span>
