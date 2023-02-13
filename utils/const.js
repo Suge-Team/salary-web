@@ -85,5 +85,5 @@ export const jobFocuses = [
   "Embedded",
   "Security",
   "Hardware",
-  "System Administrator",
+  "System Admin",
 ];

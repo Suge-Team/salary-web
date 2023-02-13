@@ -9,7 +9,10 @@
           <div class="flex md:absolute md:inset-y-0 md:left-0 lg:static xl:col-span-2">
             <div class="flex flex-shrink-0 items-center">
               <nuxt-link to="/">
-                <img class="block h-10 w-auto pb-1" src="~/assets/images/logo.png" alt="Your Company" />
+                <div class="flex">
+                  <img class="block h-10 w-auto" src="~/assets/images/logo.png" alt="Your Company" />
+                  <span class="font-medium my-auto ml-2 text-xl text-primary hidden sm:block">Lương Tháng</span>
+                </div>
               </nuxt-link>
             </div>
           </div>
@@ -61,7 +64,7 @@
         </div>
       </div>
 
-      <PopoverPanel as="nav" class="lg:hidden" aria-label="Global">
+      <PopoverPanel v-slot="{ close }" as="nav" class="lg:hidden" aria-label="Global">
         <div class="mx-auto max-w-3xl space-y-1 px-2 pt-2 pb-3 sm:px-4">
           <nuxt-link
             v-for="item in navigation"
@@ -71,11 +74,21 @@
               item.current ? 'bg-gray-100 text-gray-900' : 'hover:bg-gray-50',
               'block rounded-md py-2 px-3 text-base font-medium',
             ]"
+            @click="close"
           >
             {{ item.name }}
           </nuxt-link>
         </div>
       </PopoverPanel>
+
+      <nuxt-link
+        v-if="!route.path.startsWith('/salaries/submit')"
+        type="button"
+        to="/salaries/submit"
+        class="fixed z-20 bottom-4 right-4 lg:hidden items-center rounded-full border border-transparent bg-primary p-3 text-white shadow-sm hover:bg-primary-darker focus:outline-none focus:ring-2 focus:ring-primary-lighter focus:ring-offset-2"
+      >
+        <PlusIconOutline class="h-6 w-6" aria-hidden="true" />
+      </nuxt-link>
     </header>
   </Popover>
 </template>
@@ -83,7 +96,7 @@
 <script setup>
 import { Popover, PopoverButton, PopoverPanel } from "@headlessui/vue";
 import { MagnifyingGlassIcon } from "@heroicons/vue/20/solid";
-import { Bars3Icon, XMarkIcon } from "@heroicons/vue/24/outline";
+import { Bars3Icon, XMarkIcon, PlusIcon as PlusIconOutline } from "@heroicons/vue/24/outline";
 
 const route = useRoute();
 const router = useRouter();

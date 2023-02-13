@@ -3,14 +3,6 @@
     <!-- Heading -->
     <div class="pb-5 sm:flex sm:items-center sm:justify-between">
       <h3 class="text-2xl font-medium text-gray-900">Tham khảo lương</h3>
-      <div class="mt-3 sm:mt-0 sm:ml-4">
-        <nuxt-link
-          to="/salaries/submit"
-          class="inline-flex items-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-primary-lighter focus:ring-offset-2"
-        >
-          Nhập lương của bạn
-        </nuxt-link>
-      </div>
     </div>
 
     <core-stat-card :item-count="stats.length">
@@ -27,11 +19,21 @@
     </core-stat-card>
 
     <!-- Filters -->
-    <div class="flex flex-row gap-4 mb-4 mt-8">
-      <core-text-field v-model="searchQuery" class="basis-1/4" label="Công ty" placeholder="FPT, LINE, etc" />
-      <core-select v-model="selectedCategory" class="basis-1/4" label="Vị trí" :items="categoryItems" />
-      <core-select v-model="selectedFocus" class="basis-1/4" label="Mảng" :items="focusItems" />
-      <core-text-field v-model.number="yoe" class="basis-1/4" label="Số năm kinh nghiệm" type="number" />
+    <div class="flex flex-row flex-wrap sm:flex-nowrap gap-4 mb-4 mt-8">
+      <core-text-field
+        v-model="searchQuery"
+        class="basis-full sm:basis-1/5 grow"
+        label="Công ty"
+        placeholder="FPT, VNG, v.v"
+      />
+      <core-select v-model="selectedCategory" class="basis-1/5 grow" label="Phân loại" :items="categoryItems" />
+      <core-select v-model="selectedFocus" class="basis-1/5 grow" label="Chuyên môn" :items="focusItems" />
+      <core-text-field
+        v-model.number="yoe"
+        class="hidden sm:inline-block basis-1/5 grow"
+        label="Số năm kinh nghiệm"
+        type="number"
+      />
     </div>
 
     <!-- Salary table -->
@@ -45,6 +47,10 @@
       <template #companyName="{ item }">
         <div class="max-w-[200px] text-ellipsis overflow-hidden">
           <nuxt-link :to="`/companies/${item.companyId}`" class="text-primary">{{ item.companyName }}</nuxt-link>
+          <dl class="font-normal sm:hidden">
+            <dd class="mt-1 truncate text-gray-700">{{ item.jobTitle }}</dd>
+            <dd class="mt-1 truncate text-gray-500">{{ item.yearOfExperience }} YoE</dd>
+          </dl>
         </div>
       </template>
 
@@ -65,6 +71,14 @@
 
       <template #totalCompensation="{ item }">
         <b>{{ formatMillion(item.totalCompensation) }}</b>
+        <dl class="font-normal sm:hidden">
+          <dd class="mt-1 truncate text-gray-500">
+            Tháng: <b>{{ formatMillion(item.monthlyBaseSalary) }}</b>
+          </dd>
+          <dd class="mt-1 truncate text-gray-500">
+            Thưởng: <b>{{ formatMillion(item.annualExpectedBonus) }}</b>
+          </dd>
+        </dl>
       </template>
 
       <template #createdAt="{ item }">
@@ -85,26 +99,31 @@ const compensationHeaders = [
     text: "Chức danh",
     value: "jobTitle",
     sortable: true,
+    hiddenOnMobile: true,
   },
   {
     text: "Phân loại",
     value: "jobCategory",
     sortable: true,
+    hiddenOnMobile: true,
   },
   {
     text: "Năm kinh nghiệm",
     value: "yearOfExperience",
     sortable: true,
+    hiddenOnMobile: true,
   },
   {
     text: "Lương tháng",
     value: "monthlyBaseSalary",
     sortable: true,
+    hiddenOnMobile: true,
   },
   {
     text: "Thưởng theo năm",
     value: "annualExpectedBonus",
     sortable: true,
+    hiddenOnMobile: true,
   },
   {
     text: "Tổng lương năm",
@@ -114,12 +133,13 @@ const compensationHeaders = [
   {
     text: "Ngày đăng",
     value: "createdAt",
+    hiddenOnMobile: true,
   },
 ];
 
 const compensationStats = await fetchCompensationStats();
 const stats = [
-  { name: "Lương năm trung bình", value: compensationStats.mean },
+  { name: "Trung bình năm", value: compensationStats.mean },
   { name: "Top 10%", value: compensationStats.tenPercents },
   { name: "Top 50%", value: compensationStats.fiftyPercents },
   { name: "Top 90%", value: compensationStats.ninetyPercents },
@@ -131,41 +151,8 @@ const allOption = {
   text: "Tất cả",
 };
 
-const categoryItems = computed(() => {
-  const items = [allOption];
-
-  const categories = new Set();
-  allCompensations.forEach((compensation) => {
-    compensation.jobCategory && categories.add(compensation.jobCategory);
-  });
-
-  categories.forEach((category) => {
-    items.push({
-      id: items.length,
-      text: category,
-    });
-  });
-
-  return items;
-});
-
-const focusItems = computed(() => {
-  const items = [allOption];
-
-  const focuses = new Set();
-  allCompensations.forEach((compensation) => {
-    compensation.jobFocus && focuses.add(compensation.jobFocus);
-  });
-
-  focuses.forEach((focus) => {
-    items.push({
-      id: items.length,
-      text: focus,
-    });
-  });
-
-  return items;
-});
+const categoryItems = [allOption, ...jobCategories.map((category, index) => ({ id: index + 1, text: category }))];
+const focusItems = [allOption, ...jobFocuses.map((focus, index) => ({ id: index + 1, text: focus }))];
 
 const searchQuery = ref("");
 const selectedCategory = ref(allOption);

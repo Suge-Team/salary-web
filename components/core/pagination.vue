@@ -5,6 +5,7 @@
         href="#"
         class="relative inline-flex items-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50"
         :class="{ 'text-gray-200 pointer-events-none': currentPage === 1 }"
+        @click.prevent="currentPage > 1 && $emit('change-page', currentPage - 1)"
       >
         Trang trước
       </a>
@@ -12,6 +13,7 @@
         href="#"
         class="relative ml-3 inline-flex items-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50"
         :class="{ 'text-gray-200 pointer-events-none': currentPage === totalPage }"
+        @click.prevent="currentPage < totalPage && emits('change-page', currentPage + 1)"
       >
         Trang sau
       </a>

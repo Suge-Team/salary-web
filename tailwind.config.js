@@ -32,6 +32,7 @@ module.exports = {
   safelist: [
     {
       pattern: /grid-cols-[1-9]+/,
+      variants: ["sm"],
     },
   ],
 };
