@@ -11,6 +11,7 @@
                   :key="header.value"
                   scope="col"
                   class="py-3.5 pr-3 text-left text-sm font-semibold text-gray-900 pl-2"
+                  :class="{ 'hidden sm:table-cell': header.hiddenOnMobile }"
                 >
                   <template v-if="header.sortable">
                     <div class="group inline-flex cursor-pointer" @click.prevent="toggleSort(header.value)">
@@ -41,6 +42,7 @@
                   v-for="header in headers"
                   :key="header.value"
                   class="whitespace-nowrap py-4 px-3 text-sm text-gray-500"
+                  :class="{ 'hidden sm:table-cell': header.hiddenOnMobile }"
                 >
                   <slot :name="header.value" :item="item" :index="index">{{ item[header.value] }}</slot>
                 </td>

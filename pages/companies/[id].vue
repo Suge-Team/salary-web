@@ -48,6 +48,9 @@
     >
       <template #jobTitle="{ item }">
         <div class="max-w-[150px] text-ellipsis overflow-hidden">{{ item.jobTitle }}</div>
+        <dl class="font-normal sm:hidden">
+          <dd class="mt-1 truncate text-gray-500">{{ item.yearOfExperience }} YoE</dd>
+        </dl>
       </template>
 
       <template #monthlyBaseSalary="{ item }">
@@ -63,6 +66,14 @@
 
       <template #totalCompensation="{ item }">
         <b>{{ formatMillion(item.totalCompensation) }}</b>
+        <dl class="font-normal sm:hidden">
+          <dd class="mt-1 truncate text-gray-500">
+            Tháng: <b>{{ formatMillion(item.monthlyBaseSalary) }}</b>
+          </dd>
+          <dd class="mt-1 truncate text-gray-500">
+            Thưởng: <b>{{ formatMillion(item.annualExpectedBonus) }}</b>
+          </dd>
+        </dl>
       </template>
 
       <template #createdAt="{ item }">
@@ -86,21 +97,25 @@ const compensationHeaders = [
     text: "Phân loại",
     value: "jobCategory",
     sortable: true,
+    hiddenOnMobile: true,
   },
   {
     text: "Năm kinh nghiệm",
     value: "yearOfExperience",
     sortable: true,
+    hiddenOnMobile: true,
   },
   {
     text: "Lương tháng",
     value: "monthlyBaseSalary",
     sortable: true,
+    hiddenOnMobile: true,
   },
   {
     text: "Thưởng theo năm",
     value: "annualExpectedBonus",
     sortable: true,
+    hiddenOnMobile: true,
   },
   {
     text: "Tổng lương năm",
@@ -110,6 +125,7 @@ const compensationHeaders = [
   {
     text: "Ngày đăng",
     value: "createdAt",
+    hiddenOnMobile: true,
   },
 ];
 

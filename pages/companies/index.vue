@@ -7,7 +7,7 @@
 
     <!-- Filters -->
     <div class="flex flex-row gap-4 mb-4">
-      <core-text-field v-model="searchQuery" class="basis-1/4" label="Công ty" placeholder="FPT, LINE, etc" />
+      <core-text-field v-model="searchQuery" class="basis-full sm:basis-2/5" placeholder="FPT, VNG, v.v" />
     </div>
 
     <!-- Salary table -->
@@ -20,10 +20,17 @@
     >
       <template #name="{ item }">
         <nuxt-link class="text-primary" :to="`/companies/${item.id}`">{{ item.name }}</nuxt-link>
+        <dl class="font-normal sm:hidden">
+          <dd class="mt-1 truncate text-gray-700">{{ item.compensationCount }} lượt đăng</dd>
+        </dl>
       </template>
 
       <template #compensationMedian="{ item }">
-        {{ formatMillion(item.compensationMedian) }}
+        <b>{{ formatMillion(item.compensationMedian) }}</b>
+        <dl class="font-normal sm:hidden">
+          <dd class="mt-1 truncate text-gray-700">Thấp nhất: {{ formatMillion(item.compensationMin) }}</dd>
+          <dd class="mt-1 truncate text-gray-700">Cao nhất: {{ formatMillion(item.compensationMax) }}</dd>
+        </dl>
       </template>
 
       <template #compensationMin="{ item }">
@@ -53,16 +60,19 @@ const companyHeaders = [
     text: "Thấp nhất",
     value: "compensationMin",
     sortable: true,
+    hiddenOnMobile: true,
   },
   {
     text: "Cao nhất",
     value: "compensationMax",
     sortable: true,
+    hiddenOnMobile: true,
   },
   {
     text: "Số lượt đăng",
     value: "compensationCount",
     sortable: true,
+    hiddenOnMobile: true,
   },
 ];
 

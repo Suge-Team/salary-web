@@ -1,9 +1,9 @@
 <template>
   <div>
     <!-- Hot companies -->
-    <div class="pb-5 sm:flex sm:items-center sm:justify-between">
+    <div class="pb-5 flex items-center justify-between">
       <h3 class="text-2xl font-medium text-gray-900">Công ty hot</h3>
-      <div class="mt-3 sm:mt-0 sm:ml-4">
+      <div class="my-auto ml-4">
         <nuxt-link
           to="/companies"
           class="inline-flex items-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-primary-lighter focus:ring-offset-2"
@@ -35,9 +35,9 @@
     </div>
 
     <!-- New posts -->
-    <div class="pb-5 sm:flex sm:items-center sm:justify-between mt-8">
+    <div class="pb-5 flex items-center justify-between mt-8">
       <h3 class="text-2xl font-medium text-gray-900">Lương mới nhập</h3>
-      <div class="mt-3 sm:mt-0 sm:ml-4">
+      <div class="my-auto ml-4">
         <nuxt-link
           to="/salaries"
           class="inline-flex items-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-primary-lighter focus:ring-offset-2"
@@ -50,6 +50,10 @@
     <core-table :headers="compensationHeaders" :items="recentCompensations">
       <template #companyName="{ item }">
         <nuxt-link :to="`/companies/${item.companyId}`" class="text-primary">{{ item.companyName }}</nuxt-link>
+        <dl class="font-normal sm:hidden">
+          <dd class="mt-1 truncate text-gray-700">{{ item.jobTitle }}</dd>
+          <dd class="mt-1 truncate text-gray-500">{{ item.yearOfExperience }} YoE</dd>
+        </dl>
       </template>
 
       <template #monthlyBaseSalary="{ item }">
@@ -65,6 +69,14 @@
 
       <template #totalCompensation="{ item }">
         <b>{{ formatMillion(item.totalCompensation) }}</b>
+        <dl class="font-normal sm:hidden">
+          <dd class="mt-1 truncate text-gray-500">
+            Tháng: <b>{{ formatMillion(item.monthlyBaseSalary) }}</b>
+          </dd>
+          <dd class="mt-1 truncate text-gray-500">
+            Thưởng: <b>{{ formatMillion(item.annualExpectedBonus) }}</b>
+          </dd>
+        </dl>
       </template>
 
       <template #createdAt="{ item }">
@@ -86,22 +98,27 @@ const compensationHeaders = [
   {
     text: "Chức danh",
     value: "jobTitle",
+    hiddenOnMobile: true,
   },
   {
     text: "Phân loại",
     value: "jobCategory",
+    hiddenOnMobile: true,
   },
   {
     text: "Năm kinh nghiệm",
     value: "yearOfExperience",
+    hiddenOnMobile: true,
   },
   {
     text: "Lương tháng",
     value: "monthlyBaseSalary",
+    hiddenOnMobile: true,
   },
   {
     text: "Thưởng theo năm",
     value: "annualExpectedBonus",
+    hiddenOnMobile: true,
   },
   {
     text: "Tổng lương năm",
@@ -110,6 +127,7 @@ const compensationHeaders = [
   {
     text: "Ngày đăng",
     value: "createdAt",
+    hiddenOnMobile: true,
   },
 ];
 </script>

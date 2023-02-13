@@ -72,7 +72,7 @@
             </div>
 
             <div class="sm:col-span-3">
-              <CoreSelect v-model="city" label="Tỉnh thành" :items="cityItems" :invalid="!!v$.city.$error" />
+              <CoreSelect v-model="city" label="Tỉnh thành" :items="cityItems" optional />
             </div>
 
             <div class="sm:col-span-3">
@@ -173,23 +173,29 @@ const companyNames = companies.map((company) => company.name);
 const cityItems = cities.map((city, index) => ({ id: index, text: city }));
 const rules = {
   companyName: { required },
-  city: { required },
   jobTitle: { required },
   jobCategory: { required },
   yearOfExperience: { required },
   monthlySalary: { required },
-  annualExpectedBonus: { minLength: minLength(1) },
+  annualExpectedBonus: { required, minLength: minLength(1) },
 };
-const v$ = useVuelidate(rules, { companyName, city, jobTitle, jobCategory, yearOfExperience, monthlySalary });
+const v$ = useVuelidate(rules, {
+  companyName,
+  jobTitle,
+  jobCategory,
+  yearOfExperience,
+  monthlySalary,
+  annualExpectedBonus,
+});
 
 async function submitSalary() {
   const result = await v$.value.$validate();
   if (result) {
     await createSalary({
       companyName: companyName.value,
-      city: city.value.text,
+      city: city.value?.text,
       jobTitle: jobTitle.value,
-      jobCategory: jobCategory.value.text,
+      jobCategory: jobCategory.value?.text,
       jobFocus: jobFocus.value?.text || undefined,
       yearOfExperience: parseInt(yearOfExperience.value),
       monthlyBaseSalary: parseInt(monthlySalary.value),
