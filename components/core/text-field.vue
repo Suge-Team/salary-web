@@ -11,10 +11,11 @@
         :type="type"
         :name="name"
         class="block w-full rounded-md border-gray-300 shadow-sm focus:border-primary-lighter focus:ring-primary-lighter sm:text-sm"
-        :class="
-          invalid &&
-          'border-red-300 text-red-900 placeholder-red-300 focus:border-red-500 focus:outline-none focus:ring-red-500'
-        "
+        :class="{
+          'border-red-300 text-red-900 placeholder-red-300 focus:border-red-500 focus:outline-none focus:ring-red-500':
+            !!invalid,
+          'no-appearance': !!noAppearance,
+        }"
         :placeholder="placeholder"
         :value="modelValue"
         @input="$emit('update:modelValue', $event.target.value)"
@@ -41,7 +42,17 @@ const props = defineProps({
     default: false,
   },
   invalid: Boolean,
+  noAppearance: Boolean,
 });
 
 const emits = defineEmits(["update:modelValue", "focus"]);
 </script>
+
+<style scoped>
+.no-appearance::-webkit-inner-spin-button,
+.no-appearance::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+  -moz-appearance: textfield;
+}
+</style>

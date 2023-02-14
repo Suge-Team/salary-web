@@ -34,7 +34,8 @@
               <CoreTextField
                 v-model="monthlySalary"
                 label="Lương tháng"
-                type="text"
+                type="number"
+                no-appearance
                 currency-unit="triệu VND"
                 :invalid="!!v$.monthlySalary.$error"
               />
@@ -44,9 +45,10 @@
               <CoreTextField
                 v-model="annualExpectedBonus"
                 label="Thưởng theo năm"
-                type="text"
+                type="number"
                 currency-unit="triệu VND"
                 placeholder="Tính cả lương tháng 13, v.v"
+                no-appearance
                 :invalid="!!v$.annualExpectedBonus.$error"
               />
             </div>
@@ -94,7 +96,8 @@
               <CoreTextField
                 v-model="signingBonus"
                 label="Signing bonus"
-                type="text"
+                type="number"
+                no-appearance
                 currency-unit="triệu VND"
                 optional
               />
@@ -191,22 +194,27 @@ const v$ = useVuelidate(rules, {
 async function submitSalary() {
   const result = await v$.value.$validate();
   if (result) {
-    await createSalary({
-      companyName: companyName.value,
-      city: city.value?.text,
-      jobTitle: jobTitle.value,
-      jobCategory: jobCategory.value?.id,
-      jobFocus: jobFocus.value?.id || undefined,
-      yearOfExperience: parseInt(yearOfExperience.value),
-      monthlyBaseSalary: parseInt(monthlySalary.value),
-      annualExpectedBonus: parseInt(annualExpectedBonus.value) || 0,
-      signingBonus: signingBonus.value ? parseInt(signingBonus.value) : undefined,
-      bonusMemo: bonusMemo.value || undefined,
-      level: level.value || undefined,
-      otherBenefits: otherBenefits.value || undefined,
-      email: email.value || undefined,
-      deviceId: getDeviceId(),
-    });
+    try {
+      await createSalary({
+        companyName: companyName.value,
+        city: city.value?.text,
+        jobTitle: jobTitle.value,
+        jobCategory: jobCategory.value?.id,
+        jobFocus: jobFocus.value?.id || undefined,
+        yearOfExperience: parseInt(yearOfExperience.value),
+        monthlyBaseSalary: parseInt(monthlySalary.value),
+        annualExpectedBonus: parseInt(annualExpectedBonus.value) || 0,
+        signingBonus: signingBonus.value ? parseInt(signingBonus.value) : undefined,
+        bonusMemo: bonusMemo.value || undefined,
+        level: level.value || undefined,
+        otherBenefits: otherBenefits.value || undefined,
+        email: email.value || undefined,
+        deviceId: getDeviceId(),
+      });
+    } catch (err) {
+      alert("Có lỗi xảy ra, vui lòng kiểm tra thông tin và thử lại");
+      return;
+    }
 
     openConfirmDialog.value = true;
   }
