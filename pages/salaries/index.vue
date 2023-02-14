@@ -58,6 +58,10 @@
         <div class="max-w-[150px] text-ellipsis overflow-hidden">{{ item.jobTitle }}</div>
       </template>
 
+      <template #jobFocus="{ item }">
+        {{ jobFocusesMap[item.jobFocus] || item.jobFocus || "-" }}
+      </template>
+
       <template #monthlyBaseSalary="{ item }">
         <b>{{ formatMillion(item.monthlyBaseSalary) }}</b>
       </template>
@@ -102,8 +106,8 @@ const compensationHeaders = [
     hiddenOnMobile: true,
   },
   {
-    text: "Phân loại",
-    value: "jobCategory",
+    text: "Chuyên môn",
+    value: "jobFocus",
     sortable: true,
     hiddenOnMobile: true,
   },
@@ -120,7 +124,7 @@ const compensationHeaders = [
     hiddenOnMobile: true,
   },
   {
-    text: "Thưởng theo năm",
+    text: "Thưởng năm",
     value: "annualExpectedBonus",
     sortable: true,
     hiddenOnMobile: true,
@@ -147,12 +151,12 @@ const stats = [
 
 const allCompensations = await fetchAllCompensations();
 const allOption = {
-  id: 0,
+  id: "all",
   text: "Tất cả",
 };
 
-const categoryItems = [allOption, ...jobCategories.map((category, index) => ({ id: index + 1, text: category }))];
-const focusItems = [allOption, ...jobFocuses.map((focus, index) => ({ id: index + 1, text: focus }))];
+const categoryItems = [allOption, ...jobCategories];
+const focusItems = [allOption, ...jobFocuses];
 
 const searchQuery = ref("");
 const selectedCategory = ref(allOption);
@@ -169,15 +173,15 @@ const compensations = computed(() => {
     });
   }
 
-  if (selectedCategory.value?.id) {
+  if (selectedCategory.value?.id && selectedCategory.value.id !== "all") {
     queryResult = queryResult.filter((compensation) => {
-      return compensation.jobCategory === selectedCategory.value.text;
+      return compensation.jobCategory === selectedCategory.value.id;
     });
   }
 
-  if (selectedFocus.value?.id) {
+  if (selectedFocus.value?.id && selectedFocus.value.id !== "all") {
     queryResult = queryResult.filter((compensation) => {
-      return compensation.jobFocus === selectedFocus.value.text;
+      return compensation.jobFocus === selectedFocus.value.id;
     });
   }
 

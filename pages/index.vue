@@ -56,6 +56,10 @@
         </dl>
       </template>
 
+      <template #jobFocus="{ item }">
+        {{ jobFocusesMap[item.jobFocus] || item.jobFocus || "-" }}
+      </template>
+
       <template #monthlyBaseSalary="{ item }">
         <b>{{ formatMillion(item.monthlyBaseSalary) }}</b>
       </template>
@@ -101,8 +105,8 @@ const compensationHeaders = [
     hiddenOnMobile: true,
   },
   {
-    text: "Phân loại",
-    value: "jobCategory",
+    text: "Chuyên môn",
+    value: "jobFocus",
     hiddenOnMobile: true,
   },
   {

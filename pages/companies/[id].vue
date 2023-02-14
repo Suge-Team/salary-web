@@ -53,6 +53,14 @@
         </dl>
       </template>
 
+      <template #jobCategory="{ item }">
+        {{ jobCategoriesMap[item.jobCategory] || item.jobCategory }}
+      </template>
+
+      <template #jobFocus="{ item }">
+        {{ jobFocusesMap[item.jobFocus] || item.jobFocus || "-" }}
+      </template>
+
       <template #monthlyBaseSalary="{ item }">
         <b>{{ formatMillion(item.monthlyBaseSalary) }}</b>
       </template>
@@ -100,6 +108,11 @@ const compensationHeaders = [
     hiddenOnMobile: true,
   },
   {
+    text: "Chuyên môn",
+    value: "jobFocus",
+    hiddenOnMobile: true,
+  },
+  {
     text: "Năm kinh nghiệm",
     value: "yearOfExperience",
     sortable: true,
@@ -112,7 +125,7 @@ const compensationHeaders = [
     hiddenOnMobile: true,
   },
   {
-    text: "Thưởng theo năm",
+    text: "Thưởng năm",
     value: "annualExpectedBonus",
     sortable: true,
     hiddenOnMobile: true,
