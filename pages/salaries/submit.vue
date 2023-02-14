@@ -72,7 +72,7 @@
             </div>
 
             <div class="sm:col-span-3">
-              <CoreSelect v-model="city" label="Tỉnh thành" :items="cityItems" optional />
+              <CoreSelect v-model="city" label="Nơi làm việc" :items="cityItems" optional />
             </div>
 
             <div class="sm:col-span-3">
@@ -164,8 +164,8 @@ const openConfirmDialog = ref(false);
 const jobTitles = ref([]);
 const levels = ref([]);
 
-const categoryItems = jobCategories.map((category, index) => ({ id: index, text: category }));
-const focusItems = jobFocuses.map((focus, index) => ({ id: index, text: focus }));
+const categoryItems = jobCategories;
+const focusItems = jobFocuses;
 
 const companies = await fetchAllCompanies();
 const companyNames = companies.map((company) => company.name);
@@ -195,8 +195,8 @@ async function submitSalary() {
       companyName: companyName.value,
       city: city.value?.text,
       jobTitle: jobTitle.value,
-      jobCategory: jobCategory.value?.text,
-      jobFocus: jobFocus.value?.text || undefined,
+      jobCategory: jobCategory.value?.id,
+      jobFocus: jobFocus.value?.id || undefined,
       yearOfExperience: parseInt(yearOfExperience.value),
       monthlyBaseSalary: parseInt(monthlySalary.value),
       annualExpectedBonus: parseInt(annualExpectedBonus.value) || 0,

@@ -2,6 +2,7 @@ export const cities = [
   "Hà Nội",
   "Thành phố Hồ Chí Minh",
   "Đà Nẵng",
+  "Remote",
   "An Giang",
   "Bà Rịa - Vũng Tàu",
   "Bắc Giang",
@@ -65,25 +66,35 @@ export const cities = [
 ];
 
 export const jobCategories = [
-  "Engineer",
-  "Engineering Manager",
-  "Product Manager",
-  "Project Manager",
-  "Designer",
-  "Business Analyst",
-  "Khác",
+  { id: "engineer", text: "Engineer" },
+  { id: "engineering_manager", text: "Engineering Manager" },
+  { id: "product_manager", text: "Product Manager" },
+  { id: "project_manager", text: "Project Manager" },
+  { id: "designer", text: "Designer" },
+  { id: "business_analyst", text: "Business Analyst" },
+  { id: "other", text: "Khác" },
 ];
 
+export const jobCategoriesMap = {};
+jobCategories.forEach((category) => {
+  jobCategoriesMap[category.id] = category.text;
+});
+
 export const jobFocuses = [
-  "iOS",
-  "Android",
-  "Web Frontend",
-  "Backend",
-  "Fullstack",
-  "DevOps",
-  "SRE",
-  "Embedded",
-  "Security",
-  "Hardware",
-  "System Admin",
+  { id: "ios", text: "iOS" },
+  { id: "android", text: "Android" },
+  { id: "web_frontend", text: "Web Frontend" },
+  { id: "backend", text: "Backend" },
+  { id: "fullstack", text: "Fullstack" },
+  { id: "devops", text: "DevOps" },
+  { id: "sre", text: "SRE" },
+  { id: "embedded", text: "Embedded" },
+  { id: "security", text: "Security" },
+  { id: "hardware", text: "Hardware" },
+  { id: "system_administrator", text: "System Admin" },
 ];
+
+export const jobFocusesMap = {};
+jobFocuses.forEach((focus) => {
+  jobFocusesMap[focus.id] = focus.text;
+});
