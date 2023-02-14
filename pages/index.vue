@@ -129,8 +129,8 @@ const compensationHeaders = [
     value: "totalCompensation",
   },
   {
-    text: "Ngày đăng",
-    value: "createdAt",
+    text: "Thời điểm",
+    value: "yearOfReceivedCompensation",
     hiddenOnMobile: true,
   },
 ];
