@@ -28,7 +28,16 @@ export default defineNuxtConfig({
   app: {
     head: {
       title: 'Lương Tháng',
-      link: [{rel: 'icon', type: 'image/png', href: "favicon.png"}]
+      link: [{rel: 'icon', type: 'image/png', href: "favicon.png"}],
+      meta: [
+        { charset: 'utf-8' },
+        { name: 'viewport', content: 'width=device-width, initial-scale=1' },
+        {
+            hid: 'description',
+            name: 'description',
+            content: 'Thống kê lương ngành IT, công nghệ thông tin ở các công ty tại Việt Nam'
+        }
+      ],
     }
   }
 });
