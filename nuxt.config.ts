@@ -1,3 +1,5 @@
+const metaDescription = "Thống kê lương ngành IT, công nghệ thông tin ở các công ty tại Việt Nam";
+
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
   runtimeConfig: {
@@ -18,7 +20,7 @@ export default defineNuxtConfig({
     },
   },
   modules: ["@nuxtjs/google-fonts", "@nuxtjs/robots", "@funken-studio/sitemap-nuxt-3"],
-  plugins: ['~/plugins/vue-gtag.client.ts'],
+  plugins: ["~/plugins/vue-gtag.client.ts"],
   googleFonts: {
     families: {
       Inter: [100, 200, 300, 400, 500, 600, 700, 800, 900],
@@ -27,17 +29,30 @@ export default defineNuxtConfig({
   },
   app: {
     head: {
-      title: 'Lương Tháng',
-      link: [{rel: 'icon', type: 'image/png', href: "favicon.png"}],
+      title: "Lương Tháng",
+      link: [{ rel: "icon", type: "image/png", href: "favicon.png" }],
       meta: [
-        { charset: 'utf-8' },
-        { name: 'viewport', content: 'width=device-width, initial-scale=1' },
+        { charset: "utf-8" },
+        { name: "viewport", content: "width=device-width, initial-scale=1" },
         {
-            hid: 'description',
-            name: 'description',
-            content: 'Thống kê lương ngành IT, công nghệ thông tin ở các công ty tại Việt Nam'
-        }
+          hid: "description",
+          name: "description",
+          content: metaDescription,
+        },
+        { property: "og:title", content: "Lương Tháng" },
+        { property: "og:image", content: "/meta_image.jpg" },
+        {
+          property: "og:description",
+          content: metaDescription,
+        },
+        { property: "twitter:title", content: "Lương Tháng" },
+        { property: "twitter:image", content: "/meta_image.jpg" },
+        { property: "twitter:card", content: "summary_large_image" },
+        {
+          property: "twitter:description",
+          content: metaDescription,
+        },
       ],
-    }
-  }
+    },
+  },
 });
