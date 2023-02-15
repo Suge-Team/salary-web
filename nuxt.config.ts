@@ -17,7 +17,7 @@ export default defineNuxtConfig({
       autoprefixer: {},
     },
   },
-  modules: ["@nuxtjs/google-fonts", "@nuxtjs/robots", "@nuxtjs/sitemap"],
+  modules: ["@nuxtjs/google-fonts", "@nuxtjs/robots", "@funken-studio/sitemap-nuxt-3"],
   plugins: ['~/plugins/vue-gtag.client.ts'],
   googleFonts: {
     families: {
