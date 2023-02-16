@@ -49,7 +49,7 @@
       <template #jobTitle="{ item }">
         <div class="max-w-[150px] text-ellipsis overflow-hidden">{{ item.jobTitle }}</div>
         <dl class="font-normal sm:hidden">
-          <dd class="mt-1 truncate text-gray-500">{{ item.yearOfExperience }} YoE</dd>
+          <dd class="mt-1 truncate text-gray-500">{{ item.yearOfExperience || "-" }} YoE</dd>
         </dl>
       </template>
 
@@ -59,6 +59,10 @@
 
       <template #jobFocus="{ item }">
         {{ jobFocusesMap[item.jobFocus] || item.jobFocus || "-" }}
+      </template>
+
+      <template #yearOfExperience="{ item }">
+        {{ item.yearOfExperience || "-" }}
       </template>
 
       <template #monthlyBaseSalary="{ item }">
