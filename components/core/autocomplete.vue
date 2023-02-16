@@ -60,6 +60,7 @@ const props = defineProps({
   },
   placeholder: { type: String, default: "" },
   invalid: Boolean,
+  noCustom: Boolean,
 });
 
 const emits = defineEmits(["update:modelValue", "focus"]);
@@ -78,7 +79,7 @@ const filteredItems = computed(() => {
 
   const set = new Set(filtered);
   const uniqueItems = Array.from(set);
-  if (set.has(query.value)) {
+  if (set.has(query.value) || props.noCustom) {
     return uniqueItems;
   } else {
     return [query.value, ...uniqueItems];
