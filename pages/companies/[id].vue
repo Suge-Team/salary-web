@@ -9,19 +9,35 @@
     <core-stat-card :item-count="5">
       <core-stat-item>
         <template #title>Lương năm median</template>
-        <template #text>{{ company.compensationMedian }}</template>
+        <template #text>
+          <template v-if="getBillions(company.compensationMedian) > 0">
+            {{ getBillions(company.compensationMedian)
+            }}<span class="mx-1 text-base font-medium text-gray-500">tỷ</span>
+          </template>
+          {{ getMillions(company.compensationMedian) }}
+        </template>
         <template #subText>triệu</template>
       </core-stat-item>
 
       <core-stat-item>
         <template #title>Thấp nhất</template>
-        <template #text>{{ company.compensationMin }}</template>
+        <template #text>
+          <template v-if="getBillions(company.compensationMin) > 0">
+            {{ getBillions(company.compensationMin) }}<span class="mx-1 text-base font-medium text-gray-500">tỷ</span>
+          </template>
+          {{ getMillions(company.compensationMin) }}
+        </template>
         <template #subText>triệu</template>
       </core-stat-item>
 
       <core-stat-item>
         <template #title>Cao nhất</template>
-        <template #text>{{ company.compensationMax }}</template>
+        <template #text>
+          <template v-if="getBillions(company.compensationMax) > 0">
+            {{ getBillions(company.compensationMax) }}<span class="mx-1 text-base font-medium text-gray-500">tỷ</span>
+          </template>
+          {{ getMillions(company.compensationMax) }}
+        </template>
         <template #subText>triệu</template>
       </core-stat-item>
 
