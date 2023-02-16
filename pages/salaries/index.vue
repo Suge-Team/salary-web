@@ -49,7 +49,7 @@
           <nuxt-link :to="`/companies/${item.companyId}`" class="text-primary">{{ item.companyName }}</nuxt-link>
           <dl class="font-normal sm:hidden">
             <dd class="mt-1 truncate text-gray-700">{{ item.jobTitle }}</dd>
-            <dd class="mt-1 truncate text-gray-500">{{ item.yearOfExperience }} YoE</dd>
+            <dd class="mt-1 truncate text-gray-500">{{ item.yearOfExperience || "-" }} YoE</dd>
           </dl>
         </div>
       </template>
@@ -60,6 +60,10 @@
 
       <template #jobFocus="{ item }">
         {{ jobFocusesMap[item.jobFocus] || item.jobFocus || "-" }}
+      </template>
+
+      <template #yearOfExperience="{ item }">
+        {{ item.yearOfExperience || "-" }}
       </template>
 
       <template #monthlyBaseSalary="{ item }">
