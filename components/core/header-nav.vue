@@ -19,7 +19,7 @@
           <div class="min-w-0 flex-1 md:px-8 lg:px-0 xl:col-span-5">
             <div class="flex items-center px-6 py-4 md:mx-auto md:max-w-3xl lg:mx-0 lg:max-w-none xl:px-0">
               <div class="w-full">
-                <CoreAutocomplete v-model="companyName" placeholder="Tìm công ty" :items="companyNames">
+                <CoreAutocomplete v-model="companyName" placeholder="Tìm công ty" :items="companyNames" no-custom>
                   <template #icon>
                     <MagnifyingGlassIcon class="h-5 w-5 text-gray-400" aria-hidden="true" />
                   </template>

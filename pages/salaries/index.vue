@@ -102,6 +102,8 @@
 </template>
 
 <script setup>
+const router = useRouter();
+
 const compensationHeaders = [
   {
     text: "Công ty",
@@ -174,6 +176,29 @@ const yoe = ref(null);
 const sortBy = ref("totalCompensation");
 const sortOrder = ref(SortOrder.DESC);
 
+const urlParams = computed(() => {
+  const params = {};
+
+  if (searchQuery.value) {
+    params.q = searchQuery.value;
+  }
+  if (selectedCategory.value?.id && selectedCategory.value.id !== "all") {
+    params.category = selectedCategory.value.id;
+  }
+  if (selectedFocus.value?.id && selectedFocus.value.id !== "all") {
+    params.focus = selectedFocus.value.id;
+  }
+  if (yoe.value !== null && yoe.value !== "") {
+    params.yoe = yoe.value;
+  }
+
+  return params;
+});
+
+watch(urlParams, () => {
+  router.replace({ query: urlParams.value });
+});
+
 const compensations = computed(() => {
   let queryResult = allCompensations;
   if (searchQuery.value) {
@@ -205,6 +230,22 @@ const compensations = computed(() => {
   }
 
   return queryResult;
+});
+
+onMounted(() => {
+  const { q, category, focus, yoe: _yoe } = router.currentRoute.value.query;
+  if (q) {
+    searchQuery.value = q;
+  }
+  if (category) {
+    selectedCategory.value = categoryItems.find((item) => item.id === category);
+  }
+  if (focus) {
+    selectedFocus.value = focusItems.find((item) => item.id === focus);
+  }
+  if (_yoe) {
+    yoe.value = parseInt(_yoe);
+  }
 });
 
 function updateSort(sort) {
