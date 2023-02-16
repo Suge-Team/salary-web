@@ -91,6 +91,7 @@ export const jobFocuses = [
   { id: "embedded", text: "Embedded" },
   { id: "security", text: "Security" },
   { id: "hardware", text: "Hardware" },
+  { id: "qa", text: "QA" },
   { id: "system_administrator", text: "System Admin" },
 ];
 
