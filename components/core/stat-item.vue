@@ -5,7 +5,7 @@
       <div class="flex items-baseline text-2xl font-semibold text-primary">
         <slot name="pre" />
         <slot name="text" />
-        <span class="ml-2 ktext-sm font-medium text-gray-500"><slot name="subText" /></span>
+        <span class="ml-1 text-base font-medium text-gray-500"><slot name="subText" /></span>
       </div>
     </dd>
   </div>

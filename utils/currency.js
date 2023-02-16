@@ -7,8 +7,12 @@ export function formatCurrency(amount) {
   }).format(amount);
 }
 
+export function getBillions(ammount) {
+  return Math.floor(ammount / 1000);
+}
+
 export function getMillions(ammount) {
-  return Math.ceil(ammount / 1000000);
+  return ammount % 1000;
 }
 
 export function formatMillion(ammount) {

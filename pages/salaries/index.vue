@@ -13,7 +13,12 @@
             {{ item.name.includes("Top") ? ">" : "" }}
           </span>
         </template>
-        <template #text>{{ item.value }}</template>
+        <template #text>
+          <template v-if="getBillions(item.value) > 0">
+            {{ getBillions(item.value) }}<span class="mx-1 text-base font-medium text-gray-500">tỷ</span>
+          </template>
+          {{ getMillions(item.value) }}
+        </template>
         <template #subText>triệu</template>
       </core-stat-item>
     </core-stat-card>
