@@ -26,10 +26,6 @@
       <ComboboxOptions
         class="absolute z-10 mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm"
       >
-        <ComboboxOption v-if="customItem" :value="customItem" as="template">
-          <div />
-        </ComboboxOption>
-
         <ComboboxOption v-for="item in filteredItems" :key="item" v-slot="{ active }" :value="item" as="template">
           <li
             :class="[
@@ -71,15 +67,23 @@ const emits = defineEmits(["update:modelValue", "focus"]);
 const query = ref("");
 const selectedItem = ref(null);
 
-const filteredItems = computed(() =>
-  !!query.value
-    ? props.items.filter((item) => {
-        return item.toLowerCase().includes(query.value.toLowerCase());
-      })
-    : []
-);
+const filteredItems = computed(() => {
+  if (!query.value) {
+    return [];
+  }
 
-const customItem = computed(() => (query.value && filteredItems.value.length === 0 ? query.value : null));
+  const filtered = props.items.filter((item) => {
+    return item.toLowerCase().includes(query.value.toLowerCase());
+  });
+
+  const set = new Set(filtered);
+  const uniqueItems = Array.from(set);
+  if (set.has(query.value)) {
+    return uniqueItems;
+  } else {
+    return [query.value, ...uniqueItems];
+  }
+});
 
 function updateQuery(event) {
   query.value = event.target.value;

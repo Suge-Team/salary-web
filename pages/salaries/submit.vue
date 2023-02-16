@@ -33,7 +33,7 @@
             <div class="sm:col-span-3">
               <CoreTextField
                 v-model="monthlySalary"
-                label="Lương tháng"
+                label="Lương tháng (gross)"
                 type="number"
                 no-appearance
                 currency-unit="triệu VND"
