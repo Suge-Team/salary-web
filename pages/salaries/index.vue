@@ -83,7 +83,10 @@
       </template>
 
       <template #totalCompensation="{ item }">
-        <b>{{ formatMillion(item.totalCompensation) }}</b>
+        <div class="flex space-x-0.5">
+          <b>{{ formatMillion(item.totalCompensation) }}</b>
+          <CheckBadgeIcon v-if="item.verified" class="h-5 w-5 text-green-600" aria-hidden="true" />
+        </div>
         <dl class="font-normal sm:hidden">
           <dd class="mt-1 truncate text-gray-500">
             Tháng: <b>{{ formatMillion(item.monthlyBaseSalary) }}</b>
@@ -102,6 +105,8 @@
 </template>
 
 <script setup>
+import { CheckBadgeIcon } from '@heroicons/vue/24/outline'
+
 const router = useRouter();
 
 const compensationHeaders = [
