@@ -71,6 +71,6 @@ export async function adminUpdateCompensation(id, attrs) {
   await $fetch(`${apiBaseUrl}/admin/compensations/${id}`, {
     method: "PATCH",
     headers: getAdminAuthHeader(),
-    body: { ...attrs, reviewer: adminAuth.email },
+    body: { ...attrs, reviewer: adminAuth.value.email },
   });
 }
