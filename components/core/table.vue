@@ -1,7 +1,7 @@
 <template>
   <div class="px-4 sm:px-6 lg:px-8">
     <div class="flex flex-col">
-      <div class="-my-2 -mx-4 overflow-x-auto sm:-mx-6 lg:-mx-8">
+      <div class="-my-2 -mx-4 overflow-x-auto sm:-mx-6 lg:-mx-8 pb-2">
         <div class="inline-block min-w-full py-2 align-middle">
           <table class="min-w-full divide-y divide-gray-300">
             <thead>
@@ -37,7 +37,7 @@
             </thead>
 
             <tbody class="divide-y divide-gray-200">
-              <tr v-for="(item, index) in displayedItems" :key="index">
+              <tr v-for="(item, index) in displayedItems" :key="index" :class="rowClass(item)">
                 <td
                   v-for="header in headers"
                   :key="header.value"
@@ -49,15 +49,16 @@
               </tr>
             </tbody>
           </table>
-          <CorePagination
-            :total="items.length"
-            :current-page="currentPage"
-            :per-page="perPage"
-            @change-page="changePage"
-          />
         </div>
       </div>
     </div>
+    <CorePagination
+      class="-my-2 -mx-4 overflow-x-auto sm:-mx-6 lg:-mx-8 pb-2"
+      :total="items.length"
+      :current-page="currentPage"
+      :per-page="perPage"
+      @change-page="changePage"
+    />
   </div>
 </template>
 
@@ -76,6 +77,7 @@ const props = defineProps({
   },
   initialSortBy: { type: String, default: null },
   initialSortOrder: { type: String, default: null },
+  rowClass: { type: Function, default: () => {} },
 });
 
 const emits = defineEmits(["sortChanged"]);
