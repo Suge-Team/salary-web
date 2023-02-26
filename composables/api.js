@@ -16,6 +16,15 @@ export async function fetchCompany(id) {
   return res.data.value;
 }
 
+export async function uploadFile(formData) {
+  const res = await $fetch(`${apiBaseUrl}/compensations/docUpload`, {
+    method: "POST",
+    body: formData,
+  })
+
+  return res;
+}
+
 export async function fetchAllCompensations() {
   const res = await useFetch(`${apiBaseUrl}/compensations`);
   return res.data.value.compensations;
