@@ -9,7 +9,7 @@
     </div>
 
     <div class="flex flex-wrap justify-center md:space-x-28">
-      <div class="p-2 w-64">
+      <div class="p-2 w-72">
         <nuxt-link
           to="/salaries/submit/certification-upload"
           class="w-full inline-flex justify-center rounded-md border-transparent bg-primary px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-primary-darker focus:ring-primary-lighter"
@@ -18,17 +18,17 @@
         </nuxt-link>
 
         <ul role="list" class="divide-y divide-gray-200 border rounded-md border-inherit text-sm text-gray-500 mt-2">
-          <li class="px-3 py-2">Nặc danh</li>
+          <li class="px-3 py-2">Ẩn danh</li>
           <li class="flex space-x-0.5 px-3 py-2">
-            Chứng thực nội dung
-            <CheckBadgeIcon class="h-5 w-5 text-green-600" aria-hidden="true" />
+            Nội dung được chứng thực bằng
+            <CheckBadgeIcon class="ml-1 h-5 w-5 text-green-600" aria-hidden="true" />
           </li>
           <li class="px-3 py-2">Review nhanh hơn</li>
           <li class="px-3 py-2">Xoá ngay sau khi review</li>
           <li class="px-3 py-2">Love from cộng đồng IT VN <span class="text-red-600">❤</span></li>
         </ul>
       </div>
-      <div class="p-2 w-64">
+      <div class="p-2 w-72">
         <nuxt-link
           to="/salaries/submit/form-input"
           class="w-full inline-flex justify-center rounded-md border-transparent bg-primary px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-primary-darker focus:ring-primary-lighter"
@@ -37,7 +37,7 @@
         </nuxt-link>
 
         <ul role="list" class="divide-y divide-gray-200 border rounded-md border-inherit text-sm text-gray-500 mt-2">
-          <li class="px-3 py-2">Nặc danh</li>
+          <li class="px-3 py-2">Ẩn danh</li>
           <li class="px-3 py-2">Love from cộng đồng IT VN <span class="text-red-600">❤</span></li>
         </ul>
       </div>

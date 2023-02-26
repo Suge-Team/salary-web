@@ -6,7 +6,7 @@
           <h3 class="text-2xl font-medium text-gray-900">Tải lên hợp đồng lương</h3>
           <p class="mt-1 mb-2 ml-1 text-sm text-gray-500">
             Tải lên hợp đồng lương của bạn. VD: Offer Letter, Yearly Comp Statement, Promotion Summary, vv. <br />
-            File tải lên có kích thước dưới 3MB
+            File tải lên có kích thước dưới 10MB
           </p>
 
           <CoreFileUpload
@@ -210,9 +210,9 @@ async function handleFileUpload(event) {
     return;
   }
 
-  // Uploaded file size must be less than 3MB
-  if (file.size > 3145728) {
-    alert("Vui lòng chọn file có kích thước dưới 3MB");
+  // Uploaded file size must be less than 10MB
+  if (file.size > 10485760) {
+    alert("Vui lòng chọn file có kích thước dưới 10MB");
     event.target.value = null;
     return;
   }
