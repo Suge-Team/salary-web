@@ -1,15 +1,22 @@
 <template>
   <div>
     <form class="space-y-8 divide-y divide-gray-200" @submit.prevent="submitSalary">
-      <div class="space-y-8 divide-y divide-gray-200">
+      <div class="space-y-8">
         <div>
-          <div>
-            <h3 class="text-2xl font-medium text-gray-900">Nhập lương của bạn</h3>
-            <p class="mt-1 text-sm text-gray-500">
-              Thông tin điền ở đây (trừ email) sẽ được đăng <b>ẩn danh</b> trên trang web. <br />Cùng nhau xây dựng bộ
-              dữ liệu hữu ích cho tất cả mọi người nhé!
-            </p>
-          </div>
+          <h3 class="text-2xl font-medium text-gray-900">Tải lên hợp đồng lương</h3>
+          <p class="mt-1 mb-2 ml-1 text-sm text-gray-500">
+            Tải lên hợp đồng lương của bạn. VD: Offer Letter, Yearly Comp Statement, Promotion Summary, vv. <br />
+            File tải lên có kích thước dưới 10MB
+          </p>
+
+          <CoreFileUpload
+            name="certification-upload"
+            :invalid="!!v$.fileUrl.$error"
+            @update:model-value="handleFileUpload"
+          />
+        </div>
+        <div>
+          <h3 class="text-2xl font-medium text-gray-900">Nhập thông tin bổ sung</h3>
 
           <div class="mt-6 grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-6">
             <div class="sm:col-span-3">
@@ -27,29 +34,6 @@
                 label="Số năm kinh nghiệm"
                 type="number"
                 :invalid="!!v$.yearOfExperience.$error"
-              />
-            </div>
-
-            <div class="sm:col-span-3">
-              <CoreTextField
-                v-model="monthlySalary"
-                label="Lương tháng (gross)"
-                type="number"
-                no-appearance
-                currency-unit="triệu VND"
-                :invalid="!!v$.monthlySalary.$error"
-              />
-            </div>
-
-            <div class="sm:col-span-3">
-              <CoreTextField
-                v-model="annualExpectedBonus"
-                label="Thưởng theo năm"
-                type="number"
-                currency-unit="triệu VND"
-                placeholder="Tính cả lương tháng 13, v.v"
-                no-appearance
-                :invalid="!!v$.annualExpectedBonus.$error"
               />
             </div>
 
@@ -81,7 +65,7 @@
               <CoreSelect v-model="jobFocus" label="Chuyên môn" :items="focusItems" optional />
             </div>
 
-            <div class="sm:col-span-3">
+            <div class="sm:col-span-6">
               <CoreAutocomplete
                 v-model="level"
                 label="Cấp bậc / Rank"
@@ -92,33 +76,8 @@
               />
             </div>
 
-            <div class="sm:col-span-3">
-              <CoreTextField
-                v-model="signingBonus"
-                label="Signing bonus"
-                type="number"
-                no-appearance
-                currency-unit="triệu VND"
-                optional
-              />
-            </div>
-
             <div class="sm:col-span-6">
               <CoreTextArea v-model="bonusMemo" label="Ghi chú thêm về lương thưởng" optional />
-            </div>
-
-            <div class="sm:col-span-6">
-              <CoreTextArea v-model="otherBenefits" label="Quyền lợi khác" optional />
-            </div>
-
-            <div class="sm:col-span-3">
-              <CoreTextField
-                v-model="email"
-                label="Email"
-                type="email"
-                optional
-                placeholder="Bọn mình có thể liên lạc để xác nhận thông tin"
-              />
             </div>
           </div>
         </div>
@@ -144,7 +103,7 @@
 
 <script setup>
 import { useVuelidate } from "@vuelidate/core";
-import { required, minLength } from "@vuelidate/validators";
+import { required } from "@vuelidate/validators";
 
 const router = useRouter();
 
@@ -154,13 +113,9 @@ const jobTitle = ref(null);
 const jobCategory = ref(null);
 const jobFocus = ref(null);
 const yearOfExperience = ref(null);
-const monthlySalary = ref(null);
-const annualExpectedBonus = ref(null);
-const signingBonus = ref(null);
 const bonusMemo = ref(null);
 const level = ref(null);
-const otherBenefits = ref(null);
-const email = ref(null);
+const fileUrl = ref(null);
 
 const openConfirmDialog = ref(false);
 
@@ -174,50 +129,49 @@ const companies = await fetchAllCompanies();
 const companyNames = companies.map((company) => company.name);
 
 const cityItems = cities.map((city, index) => ({ id: index, text: city }));
+
 const rules = {
   companyName: { required },
   jobTitle: { required },
   jobCategory: { required },
   yearOfExperience: { required },
-  monthlySalary: { required },
-  annualExpectedBonus: { required, minLength: minLength(1) },
+  fileUrl: { required },
 };
+
 const v$ = useVuelidate(rules, {
   companyName,
   jobTitle,
   jobCategory,
   yearOfExperience,
-  monthlySalary,
-  annualExpectedBonus,
+  fileUrl,
 });
 
 async function submitSalary() {
   const result = await v$.value.$validate();
-  if (result) {
-    try {
-      await createSalary({
-        companyName: companyName.value,
-        city: city.value?.text,
-        jobTitle: jobTitle.value,
-        jobCategory: jobCategory.value?.id,
-        jobFocus: jobFocus.value?.id || undefined,
-        yearOfExperience: parseInt(yearOfExperience.value),
-        monthlyBaseSalary: parseInt(monthlySalary.value),
-        annualExpectedBonus: parseInt(annualExpectedBonus.value) || 0,
-        signingBonus: signingBonus.value ? parseInt(signingBonus.value) : undefined,
-        bonusMemo: bonusMemo.value || undefined,
-        level: level.value || undefined,
-        otherBenefits: otherBenefits.value || undefined,
-        email: email.value || undefined,
-        deviceId: getDeviceId(),
-      });
-    } catch (err) {
-      alert("Có lỗi xảy ra, vui lòng kiểm tra thông tin và thử lại");
-      return;
-    }
 
-    openConfirmDialog.value = true;
+  if (!result) return;
+  try {
+    // monthly salary and bonus will be updated later by admin
+    await createSalary({
+      companyName: companyName.value,
+      city: city.value?.text,
+      jobTitle: jobTitle.value,
+      jobCategory: jobCategory.value?.id,
+      jobFocus: jobFocus.value?.id || undefined,
+      yearOfExperience: parseInt(yearOfExperience.value),
+      monthlyBaseSalary: 1,
+      annualExpectedBonus: 0,
+      bonusMemo: bonusMemo.value || undefined,
+      level: level.value || undefined,
+      fileUrl: fileUrl.value,
+      deviceId: getDeviceId(),
+    });
+  } catch (err) {
+    alert("Có lỗi xảy ra, vui lòng kiểm tra thông tin và thử lại");
+    return;
   }
+
+  openConfirmDialog.value = true;
 }
 
 async function fetchJobTitles() {
@@ -226,7 +180,9 @@ async function fetchJobTitles() {
   const company = companies.find((company) => company.name === companyName.value);
   if (company) {
     const companyDetail = await fetchCompany(company.id);
-    jobTitles.value = companyDetail.compensations.map((compensation) => compensation.jobTitle);
+    const rawJobTitles = companyDetail.compensations.map((compensation) => compensation.jobTitle);
+    const uniqueJobTitles = [...new Set(rawJobTitles)];
+    jobTitles.value = uniqueJobTitles;
   } else {
     jobTitles.value = [];
   }
@@ -238,9 +194,38 @@ async function fetchLevels() {
   const company = companies.find((company) => company.name === companyName.value);
   if (company) {
     const companyDetail = await fetchCompany(company.id);
-    levels.value = companyDetail.compensations.map((compensation) => compensation.level);
+    const rawLevels = companyDetail.compensations.map((compensation) => compensation.level);
+    const nullFilteredLevels = rawLevels.filter((e) => !!e);
+    const uniqueLevels = [...new Set(nullFilteredLevels)];
+    levels.value = uniqueLevels;
   } else {
     levels.value = [];
+  }
+}
+
+async function handleFileUpload(event) {
+  const file = event.target.files[0];
+  if (!file) {
+    alert("Bạn chưa chọn file, vui lòng thử lại!");
+    return;
+  }
+
+  // Uploaded file size must be less than 10MB
+  if (file.size > 10485760) {
+    alert("Vui lòng chọn file có kích thước dưới 10MB");
+    event.target.value = null;
+    return;
+  }
+
+  const formData = new FormData();
+  formData.append("file", file);
+
+  try {
+    fileUrl.value = await uploadFile(formData);
+  } catch (error) {
+    alert("Có lỗi xảy ra khi upload file, vui lòng thử lại!");
+    event.target.value = null;
+    return;
   }
 }
 
