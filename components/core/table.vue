@@ -53,6 +53,7 @@
       </div>
     </div>
     <CorePagination
+      v-if="!hidePagination"
       class="-my-2 -mx-4 overflow-x-auto sm:-mx-6 lg:-mx-8 pb-2"
       :total="items.length"
       :current-page="currentPage"
@@ -77,6 +78,7 @@ const props = defineProps({
   },
   initialSortBy: { type: String, default: null },
   initialSortOrder: { type: String, default: null },
+  hidePagination: { type: Boolean, default: false },
   rowClass: { type: Function, default: () => {} },
 });
 
