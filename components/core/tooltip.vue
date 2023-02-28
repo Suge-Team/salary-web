@@ -1,6 +1,6 @@
 <template>
   <div class="relative">
-    <div class="" @mouseenter="toggleTooltip()" @mouseleave="toggleTooltip()">
+    <div @mouseenter="toggleTooltip()" @mouseleave="toggleTooltip()">
       <div ref="trigger">
         <slot />
       </div>
