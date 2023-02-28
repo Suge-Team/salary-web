@@ -67,6 +67,7 @@ export const cities = [
 
 export const jobCategories = [
   { id: "engineer", text: "Engineer" },
+  { id: "researcher", text: "Researcher" },
   { id: "engineering_manager", text: "Engineering Manager" },
   { id: "product_manager", text: "Product Manager" },
   { id: "project_manager", text: "Project Manager" },
@@ -92,6 +93,9 @@ export const jobFocuses = [
   { id: "security", text: "Security" },
   { id: "hardware", text: "Hardware" },
   { id: "qa", text: "QA" },
+  { id: "data", text: "Data" },
+  { id: "ai_ml", text: "AI/ML" },
+  { id: "blockchain", text: "Blockchain" },
   { id: "system_administrator", text: "System Admin" },
 ];
 
