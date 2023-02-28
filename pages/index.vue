@@ -47,7 +47,7 @@
       </div>
     </div>
 
-    <core-table :headers="compensationHeaders" :items="recentCompensations">
+    <core-table :headers="compensationHeaders" :items="recentCompensations" hide-pagination>
       <template #companyName="{ item }">
         <nuxt-link :to="`/companies/${item.companyId}`" class="text-primary">{{ item.companyName }}</nuxt-link>
         <dl class="font-normal sm:hidden">
@@ -90,15 +90,25 @@
         </dl>
       </template>
 
-      <template #createdAt="{ item }">
-        {{ formatDate(item.createdAt) }}
+      <template #memo="{ item }">
+        <SalaryTooltip :item="item" />
       </template>
     </core-table>
+
+    <div class="flex justify-between border-t border-gray-200 bg-white px-3 py-3">
+      <div />
+      <nuxt-link
+        to="/salaries"
+        class="inline-flex items-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-primary-lighter focus:ring-offset-2"
+      >
+        Xem tất cả
+      </nuxt-link>
+    </div>
   </div>
 </template>
 
 <script setup>
-import { CheckBadgeIcon } from '@heroicons/vue/24/outline'
+import { CheckBadgeIcon } from "@heroicons/vue/24/outline";
 
 const popularCompanies = await fetchPopularCompanies();
 const recentCompensations = await fetchRecentCompensations();
@@ -140,6 +150,11 @@ const compensationHeaders = [
   {
     text: "Thời điểm",
     value: "yearOfReceivedCompensation",
+    hiddenOnMobile: true,
+  },
+  {
+    text: "",
+    value: "memo",
     hiddenOnMobile: true,
   },
 ];

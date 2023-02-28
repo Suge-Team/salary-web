@@ -107,15 +107,15 @@
         </dl>
       </template>
 
-      <template #createdAt="{ item }">
-        {{ formatDate(item.createdAt) }}
+      <template #memo="{ item }">
+        <SalaryTooltip :item="item" />
       </template>
     </core-table>
   </div>
 </template>
 
 <script setup>
-import { CheckBadgeIcon } from '@heroicons/vue/24/outline'
+import { CheckBadgeIcon } from "@heroicons/vue/24/outline";
 
 const route = useRoute();
 const company = await fetchCompany(route.params.id);
@@ -163,6 +163,11 @@ const compensationHeaders = [
   {
     text: "Thời điểm",
     value: "yearOfReceivedCompensation",
+    hiddenOnMobile: true,
+  },
+  {
+    text: "",
+    value: "memo",
     hiddenOnMobile: true,
   },
 ];

@@ -60,7 +60,13 @@
       </template>
 
       <template #jobTitle="{ item }">
-        <div class="max-w-[150px] text-ellipsis overflow-hidden">{{ item.jobTitle }}</div>
+        <CoreTooltip placement="left" with-arrow>
+          <div class="max-w-[150px] text-ellipsis overflow-hidden">{{ item.jobTitle }}</div>
+
+          <template #content>
+            {{ item.jobTitle }}
+          </template>
+        </CoreTooltip>
       </template>
 
       <template #jobFocus="{ item }">
@@ -97,15 +103,15 @@
         </dl>
       </template>
 
-      <template #createdAt="{ item }">
-        {{ formatDate(item.createdAt) }}
+      <template #memo="{ item }">
+        <SalaryTooltip :item="item" />
       </template>
     </core-table>
   </div>
 </template>
 
 <script setup>
-import { CheckBadgeIcon } from '@heroicons/vue/24/outline'
+import { CheckBadgeIcon } from "@heroicons/vue/24/outline";
 
 const router = useRouter();
 
@@ -153,6 +159,11 @@ const compensationHeaders = [
   {
     text: "Thời điểm",
     value: "yearOfReceivedCompensation",
+    hiddenOnMobile: true,
+  },
+  {
+    text: "",
+    value: "memo",
     hiddenOnMobile: true,
   },
 ];
