@@ -97,6 +97,7 @@ export const jobFocuses = [
   { id: "ai_ml", text: "AI/ML" },
   { id: "blockchain", text: "Blockchain" },
   { id: "system_administrator", text: "System Admin" },
+  { id: "game", text: "Game" },
 ];
 
 export const jobFocusesMap = {};
