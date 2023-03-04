@@ -228,11 +228,10 @@ const jsonLd =
 }
 
 const metaTitle = `Mức lương ở công ty ${company.name} - Lương Tháng`;
-const metaDescription = `Thống kê lương tháng, thưởng, tổng lương theo năm ở công ty ${company.name} dựa trên vị trí, chuyên môn và số năm kinh nghiệm `;
+const metaDescription = `Lương năm median: ${company.compensationMedian} triệu, thấp nhất: ${company.compensationMin} triệu, cao nhất: ${company.compensationMax} triệu, số năm kinh nghiệm trung bình: ${company.meanYearOfExperience} năm, số lượt đăng: ${company.compensationCount}.`;
 useHead({
   title: metaTitle,
   meta: [
-    { charset: "utf-8" },
     {
       hid: "description",
       name: "description",

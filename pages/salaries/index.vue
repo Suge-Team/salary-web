@@ -269,7 +269,26 @@ function updateSort(sort) {
   sortOrder.value = sort.sortOrder;
 }
 
+const metaTitle = "Lương kỹ sư IT, CNTT ở các công ty tại Việt Nam - Lương Tháng";
+const metaDescription = `Số lượt đăng: ${compensations.value.length}, Lương trung bình năm: ${compensationStats.mean} triệu, Top 10% > ${compensationStats.tenPercents} triệu, Top 50% > ${compensationStats.fiftyPercents} triệu, Top 90% > ${compensationStats.ninetyPercents} triệu.`;
 useHead({
-  title: "Lương kỹ sư IT, CNTT ở các công ty tại Việt Nam - Lương Tháng",
+  title: metaTitle,
+  meta: [
+    {
+      hid: "description",
+      name: "description",
+      content: metaDescription,
+    },
+    { property: "og:title", content: metaTitle },
+    {
+      property: "og:description",
+      content: metaDescription,
+    },
+    { property: "twitter:title", content: metaTitle },
+    {
+      property: "twitter:description",
+      content: metaDescription,
+    },
+  ],
 })
 </script>

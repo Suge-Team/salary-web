@@ -121,7 +121,6 @@ const metaDescription = `Danh sách các công ty và thống kê mức lương 
 useHead({
   title: "Tiền lương trung bình của kỹ sư IT, CNTT ở các công ty tại Việt Nam - Lương Tháng",
   meta: [
-    { charset: "utf-8" },
     {
       hid: "description",
       name: "description",
