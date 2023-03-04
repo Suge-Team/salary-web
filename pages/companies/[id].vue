@@ -226,6 +226,7 @@ const jsonLd =
   "sampleSize": company.compensations.size,
   "industry": "Technology",
 }
+
 const metaTitle = `Mức lương ở công ty ${company.name} - Lương Tháng`;
 const metaDescription = `Thống kê lương tháng, thưởng, tổng lương theo năm ở công ty ${company.name} dựa trên vị trí, chuyên môn và số năm kinh nghiệm `;
 useHead({
