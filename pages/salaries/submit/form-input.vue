@@ -249,4 +249,8 @@ async function onConfirm() {
   openConfirmDialog.value = false;
   router.push("/");
 }
+
+useHead({
+  title: "Nhập lương thủ công - Lương Tháng",
+})
 </script>

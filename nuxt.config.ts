@@ -1,4 +1,4 @@
-const metaDescription = "Thống kê lương ngành IT, công nghệ thông tin ở các công ty tại Việt Nam";
+const metaDescription = "Thống kê lương ngành IT, công nghệ thông tin ở các công ty FPT, Tiki, Viettel, Vin... với đa dạng vị trí, lĩnh vực và số năm kinh nghiệm";
 
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
@@ -20,6 +20,12 @@ export default defineNuxtConfig({
     },
   },
   modules: ["@nuxtjs/google-fonts", "@nuxtjs/robots", "@funken-studio/sitemap-nuxt-3"],
+  robots: [
+    {
+      UserAgent: '*',
+      Disallow: '/admin',
+    },
+  ],
   plugins: ["~/plugins/vue-gtag.client.ts"],
   googleFonts: {
     families: {
@@ -29,7 +35,7 @@ export default defineNuxtConfig({
   },
   app: {
     head: {
-      title: "Lương Tháng",
+      title: "Lương Tháng - Lương IT tại Việt Nam",
       link: [{ rel: "icon", type: "image/png", href: "favicon.png" }],
       meta: [
         { charset: "utf-8" },
@@ -39,13 +45,13 @@ export default defineNuxtConfig({
           name: "description",
           content: metaDescription,
         },
-        { property: "og:title", content: "Lương Tháng" },
+        { property: "og:title", content: "Lương Tháng - Lương IT tại Việt Nam" },
         { property: "og:image", content: "/meta_image.jpg" },
         {
           property: "og:description",
           content: metaDescription,
         },
-        { property: "twitter:title", content: "Lương Tháng" },
+        { property: "twitter:title", content: "Lương Tháng - Lương IT tại Việt Nam" },
         { property: "twitter:image", content: "/meta_image.jpg" },
         { property: "twitter:card", content: "summary_large_image" },
         {

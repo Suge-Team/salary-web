@@ -189,4 +189,51 @@ function updateSort(sort) {
   sortBy.value = sort.sortBy;
   sortOrder.value = sort.sortOrder;
 }
+
+const latestComp = computed(() => {
+  return sortCollection(company.compensations, ref("createdAt"), sortOrder.value)[0];
+});
+
+const jsonLd = 
+{
+  "@context": "https://schema.googleapis.com/",
+  "@type": "OccupationAggregationByEmployer",
+  "name": "Software Engineer",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "lastReviewed": `${latestComp.value.createdAt}`
+  },
+  "description": `Mức lương trung bình của kỹ sư IT ở công ty ${company.name}`,
+  "estimatedSalary": [
+    {
+      "@type": "MonetaryAmountDistribution",
+      "name": "base",
+      "currency": "VND",
+      "duration": "P1Y",
+      "median": `${company.compensationMedian * 1000000}`,
+    }
+  ],
+  "hiringOrganization": {
+    "@type": "Organization",
+    "name": `${company.name}`
+  },
+  "occupationLocation": [
+    {
+      "@type": "City",
+      "name": `${latestComp.value.city ||= 'N/A'}`
+    },
+  ],
+  "sampleSize": company.compensations.size,
+  "industry": "Technology",
+}
+useHead({
+  title: `Mức lương ở công ty ${company.name} - Lương Tháng`,
+  script: [
+        {
+            type: 'application/ld-json',
+            children: JSON.stringify(jsonLd),
+        },
+    ],
+})
 </script>
+

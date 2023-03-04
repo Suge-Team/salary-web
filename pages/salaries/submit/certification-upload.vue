@@ -233,4 +233,8 @@ async function onConfirm() {
   openConfirmDialog.value = false;
   router.push("/");
 }
+
+useHead({
+  title: "Tải lên hợp đồng lương ẩn danh - Lương Tháng",
+})
 </script>
