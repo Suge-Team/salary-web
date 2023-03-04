@@ -268,4 +268,8 @@ function updateSort(sort) {
   sortBy.value = sort.sortBy;
   sortOrder.value = sort.sortOrder;
 }
+
+useHead({
+  title: "Lương kỹ sư IT, CNTT ở các công ty tại Việt Nam - Lương Tháng",
+})
 </script>

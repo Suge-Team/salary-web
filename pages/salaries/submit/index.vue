@@ -48,4 +48,8 @@
 <script setup>
 import { CheckBadgeIcon } from "@heroicons/vue/24/outline";
 import { HeartIcon } from "@heroicons/vue/24/solid";
+
+useHead({
+  title: "Nhập lương của bạn - Lương Tháng",
+})
 </script>

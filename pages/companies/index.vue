@@ -114,4 +114,8 @@ function sortAndFilterCompanies(allCompanies) {
 
   return queryResult;
 }
+
+useHead({
+  title: "Tiền lương trung bình của kỹ sư IT, CNTT ở các công ty tại Việt Nam - Lương Tháng",
+})
 </script>

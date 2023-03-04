@@ -189,4 +189,8 @@ function updateSort(sort) {
   sortBy.value = sort.sortBy;
   sortOrder.value = sort.sortOrder;
 }
+
+useHead({
+  title: `Mức lương ở công ty ${company.name} - Lương Tháng`,
+})
 </script>
