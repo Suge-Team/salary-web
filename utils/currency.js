@@ -12,12 +12,12 @@ export function getBillions(ammount) {
 }
 
 export function getMillions(ammount) {
-  return ammount % 1000;
+  return Math.floor(ammount % 1000);
 }
 
 export function formatMillion(ammount) {
   const billion = Math.floor(ammount / 1000);
-  const million = ammount % 1000;
+  const million = Math.floor(ammount % 1000);
 
   let result = "";
   if (billion > 0) {
