@@ -115,7 +115,27 @@ function sortAndFilterCompanies(allCompanies) {
   return queryResult;
 }
 
+const metaTitle = "Tiền lương trung bình của kỹ sư IT, CNTT ở các công ty tại Việt Nam - Lương Tháng";
+const metaDescription = `Danh sách các công ty và thống kê mức lương năm median, mức lương thấp nhất, mức lương cao nhất `;
+
 useHead({
   title: "Tiền lương trung bình của kỹ sư IT, CNTT ở các công ty tại Việt Nam - Lương Tháng",
+  meta: [
+    {
+      hid: "description",
+      name: "description",
+      content: metaDescription,
+    },
+    { property: "og:title", content: metaTitle },
+    {
+      property: "og:description",
+      content: metaDescription,
+    },
+    { property: "twitter:title", content: metaTitle },
+    {
+      property: "twitter:description",
+      content: metaDescription,
+    },
+  ],
 })
 </script>

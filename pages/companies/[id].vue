@@ -226,8 +226,28 @@ const jsonLd =
   "sampleSize": company.compensations.size,
   "industry": "Technology",
 }
+
+const metaTitle = `Mức lương ở công ty ${company.name} - Lương Tháng`;
+const metaDescription = `Lương năm median: ${company.compensationMedian} triệu, thấp nhất: ${company.compensationMin} triệu, cao nhất: ${company.compensationMax} triệu, số năm kinh nghiệm trung bình: ${company.meanYearOfExperience} năm, số lượt đăng: ${company.compensationCount}.`;
 useHead({
-  title: `Mức lương ở công ty ${company.name} - Lương Tháng`,
+  title: metaTitle,
+  meta: [
+    {
+      hid: "description",
+      name: "description",
+      content: metaDescription,
+    },
+    { property: "og:title", content: metaTitle },
+    {
+      property: "og:description",
+      content: metaDescription,
+    },
+    { property: "twitter:title", content: metaTitle },
+    {
+      property: "twitter:description",
+      content: metaDescription,
+    },
+  ],
   script: [
         {
             type: 'application/ld-json',
