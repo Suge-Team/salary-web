@@ -118,7 +118,7 @@
 import { CheckBadgeIcon } from "@heroicons/vue/24/outline";
 
 const route = useRoute();
-const company = await fetchCompany(route.params.id);
+const company = await fetchCompany(route.params.slug);
 
 const compensationHeaders = [
   {
@@ -194,38 +194,37 @@ const latestComp = computed(() => {
   return sortCollection(company.compensations, ref("createdAt"), sortOrder.value)[0];
 });
 
-const jsonLd = 
-{
+const jsonLd = {
   "@context": "https://schema.googleapis.com/",
   "@type": "OccupationAggregationByEmployer",
-  "name": "Software Engineer",
-  "mainEntityOfPage": {
+  name: "Software Engineer",
+  mainEntityOfPage: {
     "@type": "WebPage",
-    "lastReviewed": `${latestComp.value.createdAt}`
+    lastReviewed: `${latestComp.value.createdAt}`,
   },
-  "description": `Mức lương trung bình của kỹ sư IT ở công ty ${company.name}`,
-  "estimatedSalary": [
+  description: `Mức lương trung bình của kỹ sư IT ở công ty ${company.name}`,
+  estimatedSalary: [
     {
       "@type": "MonetaryAmountDistribution",
-      "name": "base",
-      "currency": "VND",
-      "duration": "P1Y",
-      "median": `${company.compensationMedian * 1000000}`,
-    }
-  ],
-  "hiringOrganization": {
-    "@type": "Organization",
-    "name": `${company.name}`
-  },
-  "occupationLocation": [
-    {
-      "@type": "City",
-      "name": `${latestComp.value.city ||= 'N/A'}`
+      name: "base",
+      currency: "VND",
+      duration: "P1Y",
+      median: `${company.compensationMedian * 1000000}`,
     },
   ],
-  "sampleSize": company.compensations.size,
-  "industry": "Technology",
-}
+  hiringOrganization: {
+    "@type": "Organization",
+    name: `${company.name}`,
+  },
+  occupationLocation: [
+    {
+      "@type": "City",
+      name: `${(latestComp.value.city ||= "N/A")}`,
+    },
+  ],
+  sampleSize: company.compensations.size,
+  industry: "Technology",
+};
 
 const metaTitle = `Mức lương ở công ty ${company.name} - Lương Tháng`;
 const metaDescription = `Lương năm median: ${company.compensationMedian} triệu, thấp nhất: ${company.compensationMin} triệu, cao nhất: ${company.compensationMax} triệu, số năm kinh nghiệm trung bình: ${company.meanYearOfExperience} năm, số lượt đăng: ${company.compensationCount}.`;
@@ -249,11 +248,10 @@ useHead({
     },
   ],
   script: [
-        {
-            type: 'application/ld-json',
-            children: JSON.stringify(jsonLd),
-        },
-    ],
-})
+    {
+      type: "application/ld-json",
+      children: JSON.stringify(jsonLd),
+    },
+  ],
+});
 </script>
-

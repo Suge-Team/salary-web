@@ -11,7 +11,7 @@
 
         <template #companyName="{ item }">
           <div class="w-24">
-            <a :href="`/companies/${item.companyId}`" target="_blank" class="text-primary">{{ item.companyName }}</a>
+            <a :href="`/companies/${item.companySlug}`" target="_blank" class="text-primary">{{ item.companyName }}</a>
             <dl class="font-normal">
               <dd class="mt-1 truncate text-gray-700">{{ item.city || "-" }}</dd>
               <dd class="mt-1 truncate text-gray-700">{{ item.yearOfExperience || "-" }} YoE</dd>

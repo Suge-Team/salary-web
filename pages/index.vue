@@ -49,7 +49,7 @@
 
     <core-table :headers="compensationHeaders" :items="recentCompensations" hide-pagination>
       <template #companyName="{ item }">
-        <nuxt-link :to="`/companies/${item.companyId}`" class="text-primary">{{ item.companyName }}</nuxt-link>
+        <nuxt-link :to="`/companies/${item.companySlug}`" class="text-primary">{{ item.companyName }}</nuxt-link>
         <dl class="font-normal sm:hidden">
           <dd class="mt-1 truncate text-gray-700">{{ item.jobTitle }}</dd>
           <dd class="mt-1 truncate text-gray-500">{{ item.yearOfExperience || "-" }} YoE</dd>

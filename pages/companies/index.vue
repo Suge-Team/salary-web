@@ -19,7 +19,7 @@
       @sort-changed="updateSort"
     >
       <template #name="{ item }">
-        <nuxt-link class="text-primary" :to="`/companies/${item.id}`">{{ item.name }}</nuxt-link>
+        <nuxt-link class="text-primary" :to="`/companies/${item.slug}`">{{ item.name }}</nuxt-link>
         <dl class="font-normal sm:hidden">
           <dd class="mt-1 truncate text-gray-700">{{ item.compensationCount }} lượt đăng</dd>
         </dl>
@@ -137,5 +137,5 @@ useHead({
       content: metaDescription,
     },
   ],
-})
+});
 </script>
