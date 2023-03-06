@@ -23,16 +23,15 @@ export default defineNuxtConfig({
   sitemap: {
     hostname: "https://luongthang.net",
     exclude: [
-      "/api/**",
-      "/admin/**"
+      "/admin",
+      "/admin/**",
     ],
     routes: async () => {
       const res = await $fetch("https://server.luongthang.net/companies")
       return res.companies.map(company => `/companies/${company.slug}`)
     },
     defaults: {
-      changefreq: "daily",
-      priority: 1,
+      changefreq: "weekly",
       lastmod: new Date().toISOString(),
     },
   },
