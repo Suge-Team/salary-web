@@ -118,7 +118,7 @@ watch(companyName, (value) => {
   if (value) {
     const company = companies.find((company) => company.name === value);
     if (company) {
-      router.push(`/companies/${company.companySlug}`);
+      router.push(`/companies/${company.slug}`);
     }
   }
 });
