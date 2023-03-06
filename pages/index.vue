@@ -20,7 +20,7 @@
         class="relative flex items-center space-x-3 rounded-lg border border-gray-300 bg-white px-6 py-5 shadow-sm focus-within:ring-2 focus-within:ring-primary-lighter focus-within:ring-offset-2 hover:border-gray-400"
       >
         <div class="min-w-0 flex-1">
-          <nuxt-link :to="`/companies/${company.id}`" class="focus:outline-none">
+          <nuxt-link :to="`/companies/${company.companySlug}`" class="focus:outline-none">
             <span class="absolute inset-0" aria-hidden="true" />
             <h4 class="text-lg font-medium text-primary">{{ company.name }}</h4>
             <p class="truncate text-sm text-gray-500">
