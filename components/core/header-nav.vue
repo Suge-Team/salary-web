@@ -106,6 +106,7 @@ const navigation = computed(() => {
     { name: "Trang chủ", to: "/", current: route.path === "/" || route.path === "" },
     { name: "Lương", to: "/salaries", current: route.path.startsWith("/salaries") },
     { name: "Công ty", to: "/companies", current: route.path.startsWith("/companies") },
+    { name: "About", to: "/about", current: route.path.startsWith("/about") },
   ];
 });
 
