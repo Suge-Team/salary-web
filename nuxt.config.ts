@@ -20,10 +20,26 @@ export default defineNuxtConfig({
     },
   },
   modules: ["@nuxtjs/google-fonts", "@nuxtjs/robots", "@funken-studio/sitemap-nuxt-3"],
+  sitemap: {
+    hostname: "https://luongthang.net",
+    exclude: [
+      "/api/**",
+      "/admin/**"
+    ],
+    routes: async () => {
+      const res = await $fetch("https://server.luongthang.net/companies")
+      return res.companies.map(company => `/companies/${company.slug}`)
+    },
+    defaults: {
+      changefreq: "daily",
+      priority: 1,
+      lastmod: new Date().toISOString(),
+    },
+  },
   robots: [
     {
-      UserAgent: '*',
-      Disallow: '/admin',
+      UserAgent: "*",
+      Disallow: "/admin",
     },
   ],
   plugins: ["~/plugins/vue-gtag.client.ts"],
