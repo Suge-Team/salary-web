@@ -35,12 +35,12 @@ export default defineNuxtConfig({
       lastmod: new Date().toISOString(),
     },
   },
-  robots: [
-    {
+  robots: {
+    rules: {
       UserAgent: "*",
       Disallow: "/admin",
-    },
-  ],
+    }
+  },
   plugins: ["~/plugins/vue-gtag.client.ts"],
   googleFonts: {
     families: {
