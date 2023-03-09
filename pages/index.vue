@@ -47,13 +47,18 @@
       </div>
     </div>
 
-    <core-table :headers="compensationHeaders" :items="recentCompensations" hide-pagination>
+    <core-table :headers="compensationHeaders" :items="recentCompensations" hide-pagination condensed>
       <template #companyName="{ item }">
-        <nuxt-link :to="`/companies/${item.companySlug}`" class="text-primary">{{ item.companyName }}</nuxt-link>
-        <dl class="font-normal sm:hidden">
-          <dd class="mt-1 truncate text-gray-700">{{ item.jobTitle }}</dd>
-          <dd class="mt-1 truncate text-gray-500">{{ item.yearOfExperience || "-" }} YoE</dd>
-        </dl>
+        <div class="max-w-[200px] text-ellipsis overflow-hidden sm:min-h-[44px] flex flex-col">
+          <nuxt-link :to="`/companies/${item.companySlug}`" class="text-primary my-auto">
+            {{ item.companyName }}
+          </nuxt-link>
+          <dl class="font-normal">
+            <dd class="mt-1 truncate text-gray-700 sm:hidden">{{ item.jobTitle }}</dd>
+            <dd class="mt-1 truncate text-gray-500 sm:hidden">{{ item.yearOfExperience || "-" }} YoE</dd>
+            <dd class="mt-1 truncate text-gray-500 hidden sm:block">{{ item.city }}</dd>
+          </dl>
+        </div>
       </template>
 
       <template #jobFocus="{ item }">

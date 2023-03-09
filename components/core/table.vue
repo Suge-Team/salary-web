@@ -41,8 +41,8 @@
                 <td
                   v-for="header in headers"
                   :key="header.value"
-                  class="whitespace-nowrap py-4 px-3 text-sm text-gray-500"
-                  :class="{ 'hidden sm:table-cell': header.hiddenOnMobile }"
+                  class="whitespace-nowrap px-3 text-sm text-gray-500 py-4"
+                  :class="{ 'hidden sm:table-cell': header.hiddenOnMobile, 'sm:py-2': condensed }"
                 >
                   <slot :name="header.value" :item="item" :index="index">{{ item[header.value] }}</slot>
                 </td>
@@ -80,6 +80,7 @@ const props = defineProps({
   initialSortOrder: { type: String, default: null },
   hidePagination: { type: Boolean, default: false },
   rowClass: { type: Function, default: () => {} },
+  condensed: { type: Boolean, default: false },
 });
 
 const emits = defineEmits(["sortChanged"]);

@@ -47,14 +47,18 @@
       :items="compensations"
       :initial-sort-by="sortBy"
       :initial-sort-order="sortOrder"
+      condensed
       @sort-changed="updateSort"
     >
       <template #companyName="{ item }">
-        <div class="max-w-[200px] text-ellipsis overflow-hidden">
-          <nuxt-link :to="`/companies/${item.companySlug}`" class="text-primary">{{ item.companyName }}</nuxt-link>
-          <dl class="font-normal sm:hidden">
-            <dd class="mt-1 truncate text-gray-700">{{ item.jobTitle }}</dd>
-            <dd class="mt-1 truncate text-gray-500">{{ item.yearOfExperience || "-" }} YoE</dd>
+        <div class="max-w-[200px] text-ellipsis overflow-hidden sm:min-h-[44px] flex flex-col">
+          <nuxt-link :to="`/companies/${item.companySlug}`" class="text-primary my-auto">
+            {{ item.companyName }}
+          </nuxt-link>
+          <dl class="font-normal">
+            <dd class="mt-1 truncate text-gray-700 sm:hidden">{{ item.jobTitle }}</dd>
+            <dd class="mt-1 truncate text-gray-500 sm:hidden">{{ item.yearOfExperience || "-" }} YoE</dd>
+            <dd class="mt-1 truncate text-gray-500">{{ item.city }}</dd>
           </dl>
         </div>
       </template>
@@ -290,5 +294,5 @@ useHead({
       content: metaDescription,
     },
   ],
-})
+});
 </script>

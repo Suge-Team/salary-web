@@ -33,7 +33,7 @@
                 type="number"
                 no-appearance
                 currency-unit="triệu VND"
-                placeholder="Chú ý đơn vị là triệu VND. Không nhập thừa số 0."
+                placeholder="Chú ý đơn vị, tránh thừa số 0"
                 :invalid="!!v$.monthlySalary.$error"
               />
             </div>
