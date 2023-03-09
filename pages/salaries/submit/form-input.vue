@@ -33,6 +33,7 @@
                 type="number"
                 no-appearance
                 currency-unit="triệu VND"
+                placeholder="Chú ý đơn vị là triệu VND. Không nhập thừa số 0."
                 :invalid="!!v$.monthlySalary.$error"
               />
             </div>
@@ -70,6 +71,18 @@
             </div>
 
             <div class="sm:col-span-3">
+              <CoreTextField
+                v-model="email"
+                label="Email"
+                type="email"
+                placeholder="Bọn mình có thể liên lạc để xác nhận dữ liệu nhập"
+                :invalid="!!v$.email.$error"
+              />
+            </div>
+
+            <div class="sm:col-span-3" />
+
+            <div class="sm:col-span-3">
               <CoreSelect v-model="city" label="Nơi làm việc" :items="cityItems" optional />
             </div>
 
@@ -105,16 +118,6 @@
 
             <div class="sm:col-span-6">
               <CoreTextArea v-model="otherBenefits" label="Quyền lợi khác" optional />
-            </div>
-
-            <div class="sm:col-span-3">
-              <CoreTextField
-                v-model="email"
-                label="Email"
-                type="email"
-                optional
-                placeholder="Bọn mình có thể liên lạc để xác nhận thông tin"
-              />
             </div>
           </div>
         </div>
@@ -176,6 +179,7 @@ const rules = {
   jobCategory: { required },
   yearOfExperience: { required },
   monthlySalary: { required },
+  email: { required },
   annualExpectedBonus: { required, minLength: minLength(1) },
 };
 const v$ = useVuelidate(rules, {
@@ -185,6 +189,7 @@ const v$ = useVuelidate(rules, {
   yearOfExperience,
   monthlySalary,
   annualExpectedBonus,
+  email,
 });
 
 async function submitSalary() {
@@ -252,5 +257,5 @@ async function onConfirm() {
 
 useHead({
   title: "Nhập lương thủ công - Lương Tháng",
-})
+});
 </script>
