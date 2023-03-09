@@ -11,7 +11,10 @@
 
     <div class="mt-4">
       <h3 class="text-2xl font-medium text-gray-900">Contact</h3>
-      <p class="text-gray-500 mt-2">contact@luongthang.net</p>
+      <p class="text-gray-500 mt-2">
+        Liên hệ <i>contact@luongthang.net</i> hoặc gửi góp ý cho bọn mình
+        <a class="text-primary underline" href="https://forms.gle/GNgG2XH5NefCJEDR6" target="_blank">tại đây</a>
+      </p>
     </div>
 
     <div class="mt-4">
