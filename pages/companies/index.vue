@@ -77,8 +77,8 @@ const companyHeaders = [
 ];
 
 const searchQuery = ref("");
-const sortBy = ref("name");
-const sortOrder = ref(SortOrder.ASC);
+const sortBy = ref("compensationCount");
+const sortOrder = ref(SortOrder.DESC);
 
 const allCompanies = await fetchAllCompanies();
 const companies = ref(sortAndFilterCompanies(allCompanies));
