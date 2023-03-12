@@ -72,6 +72,14 @@
 
             <div class="sm:col-span-3">
               <CoreTextField
+                v-model="yearOfReceivedCompensation"
+                label="Năm nhận hợp đồng lương"
+                :invalid="!!v$.yearOfReceivedCompensation.$error"
+              />
+            </div>
+
+            <div class="sm:col-span-3">
+              <CoreTextField
                 v-model="email"
                 label="Email"
                 type="email"
@@ -79,8 +87,6 @@
                 :invalid="!!v$.email.$error"
               />
             </div>
-
-            <div class="sm:col-span-3" />
 
             <div class="sm:col-span-3">
               <CoreSelect v-model="city" label="Nơi làm việc" :items="cityItems" optional />
@@ -153,6 +159,7 @@ const jobTitle = ref(null);
 const jobCategory = ref(null);
 const jobFocus = ref(null);
 const yearOfExperience = ref(null);
+const yearOfReceivedCompensation = ref(new Date().getFullYear().toString());
 const monthlySalary = ref(null);
 const annualExpectedBonus = ref(null);
 const signingBonus = ref(null);
@@ -178,6 +185,7 @@ const rules = {
   jobTitle: { required },
   jobCategory: { required },
   yearOfExperience: { required },
+  yearOfReceivedCompensation: { required },
   monthlySalary: { required },
   email: { required },
   annualExpectedBonus: { required, minLength: minLength(1) },
@@ -187,6 +195,7 @@ const v$ = useVuelidate(rules, {
   jobTitle,
   jobCategory,
   yearOfExperience,
+  yearOfReceivedCompensation,
   monthlySalary,
   annualExpectedBonus,
   email,
@@ -203,6 +212,7 @@ async function submitSalary() {
         jobCategory: jobCategory.value?.id,
         jobFocus: jobFocus.value?.id || undefined,
         yearOfExperience: parseInt(yearOfExperience.value),
+        yearOfReceivedCompensation: yearOfReceivedCompensation.value,
         monthlyBaseSalary: parseInt(monthlySalary.value),
         annualExpectedBonus: parseInt(annualExpectedBonus.value) || 0,
         signingBonus: signingBonus.value ? parseInt(signingBonus.value) : undefined,

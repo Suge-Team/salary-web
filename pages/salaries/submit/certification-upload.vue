@@ -65,7 +65,7 @@
               <CoreSelect v-model="jobFocus" label="Chuyên môn" :items="focusItems" optional />
             </div>
 
-            <div class="sm:col-span-6">
+            <div class="sm:col-span-3">
               <CoreAutocomplete
                 v-model="level"
                 label="Cấp bậc / Rank"
@@ -73,6 +73,14 @@
                 optional
                 placeholder="Nếu công ty có hệ thống cấp bậc"
                 @focus="fetchLevels"
+              />
+            </div>
+
+            <div class="sm:col-span-3">
+              <CoreTextField
+                v-model="yearOfReceivedCompensation"
+                label="Năm nhận hợp đồng lương"
+                :invalid="!!v$.yearOfReceivedCompensation.$error"
               />
             </div>
 
@@ -113,6 +121,7 @@ const jobTitle = ref(null);
 const jobCategory = ref(null);
 const jobFocus = ref(null);
 const yearOfExperience = ref(null);
+const yearOfReceivedCompensation = ref(new Date().getFullYear().toString());
 const bonusMemo = ref(null);
 const level = ref(null);
 const fileUrl = ref(null);
@@ -135,6 +144,7 @@ const rules = {
   jobTitle: { required },
   jobCategory: { required },
   yearOfExperience: { required },
+  yearOfReceivedCompensation: { required },
   fileUrl: { required },
 };
 
@@ -143,6 +153,7 @@ const v$ = useVuelidate(rules, {
   jobTitle,
   jobCategory,
   yearOfExperience,
+  yearOfReceivedCompensation,
   fileUrl,
 });
 
@@ -159,6 +170,7 @@ async function submitSalary() {
       jobCategory: jobCategory.value?.id,
       jobFocus: jobFocus.value?.id || undefined,
       yearOfExperience: parseInt(yearOfExperience.value),
+      yearOfReceivedCompensation: yearOfReceivedCompensation.value,
       monthlyBaseSalary: 1,
       annualExpectedBonus: 0,
       bonusMemo: bonusMemo.value || undefined,
@@ -236,5 +248,5 @@ async function onConfirm() {
 
 useHead({
   title: "Tải lên hợp đồng lương ẩn danh - Lương Tháng",
-})
+});
 </script>
