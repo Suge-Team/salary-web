@@ -5,6 +5,20 @@
         <div>
           <div>
             <h3 class="text-2xl font-medium text-gray-900">Nhập lương của bạn</h3>
+            <ul class="text-sm text-gray-500 mt-2">
+              <li>
+                - Vui lòng nhập lương <i>gross</i>, đơn vị là <i>triệu VND</i> (nếu lương thực là
+                <b class="font-semibold">50.000.000</b> -> nhập <b class="font-semibold">50</b>)
+              </li>
+              <li>
+                - Nếu lương thưởng của bạn cao hơn với mặt bằng chung nhiều, vui lòng để lại email để bọn mình có thể
+                xác nhận dữ liệu, hoặc thêm ghi chú cụ thể ở mục
+                <b class="font-semibold">Ghi chú thêm</b>
+              </li>
+              <li>
+                - Nếu bạn nhập dữ liệu nhiều lần, vui lòng để lại lý do ở mục <b class="font-semibold">Ghi chú thêm</b>
+              </li>
+            </ul>
           </div>
 
           <div class="mt-6 grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-6">
@@ -33,7 +47,6 @@
                 type="number"
                 no-appearance
                 currency-unit="triệu VND"
-                placeholder="Chú ý đơn vị, tránh thừa số 0"
                 :invalid="!!v$.monthlySalary.$error"
               />
             </div>
@@ -74,6 +87,7 @@
               <CoreTextField
                 v-model="yearOfReceivedCompensation"
                 label="Năm nhận hợp đồng lương"
+                type="number"
                 :invalid="!!v$.yearOfReceivedCompensation.$error"
               />
             </div>
@@ -83,8 +97,8 @@
                 v-model="email"
                 label="Email"
                 type="email"
-                placeholder="Bọn mình có thể liên lạc để xác nhận dữ liệu nhập"
-                :invalid="!!v$.email.$error"
+                placeholder="Dùng để xác thực dữ liệu nhập"
+                optional
               />
             </div>
 
@@ -187,7 +201,6 @@ const rules = {
   yearOfExperience: { required },
   yearOfReceivedCompensation: { required },
   monthlySalary: { required },
-  email: { required },
   annualExpectedBonus: { required, minLength: minLength(1) },
 };
 const v$ = useVuelidate(rules, {
@@ -198,7 +211,6 @@ const v$ = useVuelidate(rules, {
   yearOfReceivedCompensation,
   monthlySalary,
   annualExpectedBonus,
-  email,
 });
 
 async function submitSalary() {
