@@ -20,11 +20,12 @@
     <div class="mt-4">
       <h3 class="text-2xl font-medium text-gray-900">Credit</h3>
       <p class="text-gray-500 mt-2">
-        Trang web có sử dụng nguồn dữ liệu ban đầu từ
-        <a class="text-primary underline" href="https://voz.vn/f/lap-trinh-cntt.91/" target="_blank">Voz</a> và
+        Dữ liệu ban đầu của trang web được đóng góp bởi các bạn trong
         <a class="text-primary underline" href="https://www.facebook.com/groups/1177470863076165" target="_blank"
           >Viet Tech</a
-        >.
+        >,
+        <a class="text-primary underline" href="https://www.webuild.community" target="_blank">WeBuild</a>
+        và một số cộng đồng IT Việt Nam khác.
       </p>
     </div>
 
