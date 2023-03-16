@@ -152,10 +152,12 @@ import { Bars3Icon, ShieldCheckIcon, XMarkIcon } from "@heroicons/vue/24/outline
 
 const router = useRouter();
 const profile = adminProfile();
-profile.value.email = await adminFetchAdminProfile();
 
-if (!profile.value.email) {
+try {
+  profile.value.email = await adminFetchAdminProfile();
+} catch (e) {
   router.push("/admin/login");
+  alert(e);
 }
 
 const navigation = [{ name: "Review Lương", href: "/admin", icon: ShieldCheckIcon, current: true }];
