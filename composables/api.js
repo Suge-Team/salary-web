@@ -1,5 +1,6 @@
 const config = useRuntimeConfig();
 const apiBaseUrl = config.apiBaseUrl;
+const adProfile = adminProfile();
 
 export async function fetchAllCompanies() {
   const res = await useFetch(`${apiBaseUrl}/companies`);
@@ -93,6 +94,6 @@ export async function adminUpdateCompensation(id, attrs) {
   await $fetch(`${apiBaseUrl}/admin/compensations/${id}`, {
     method: "PATCH",
     headers: getAdminAuthHeader(),
-    body: { ...attrs, reviewer: adminAuth.value.email },
+    body: { ...attrs, reviewer: adProfile.email },
   });
 }
