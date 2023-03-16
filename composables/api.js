@@ -1,8 +1,6 @@
 const config = useRuntimeConfig();
 const apiBaseUrl = config.apiBaseUrl;
 
-const adminAuth = useAdminAuth();
-
 export async function fetchAllCompanies() {
   const res = await useFetch(`${apiBaseUrl}/companies`);
   return res.data.value.companies;
@@ -53,8 +51,23 @@ export async function createSalary(data) {
  * Admin APIs
  */
 
-function getAdminAuthHeader() {
-  return { Authorization: `Basic ${btoa(`${adminAuth.value.username}:${adminAuth.value.password}`)}` };
+export async function adminLogin(credentials) {
+  return $fetch(`${apiBaseUrl}/admin/auth/login`, {
+    method: "POST",
+    body: credentials, 
+  })
+}
+
+export async function adminFetchAdminProfile() {
+  const res = await useFetch(`${apiBaseUrl}/admin/auth/profile`, {
+    headers: getAdminAuthHeader(),
+  });
+
+  if (res.data?.value?.email) {
+    return res.data?.value?.email;
+  } else {
+    throw new Error(res.error.value);
+  } 
 }
 
 export async function adminFetchCompensation(id) {

@@ -1,6 +1,2 @@
-export const useAdminAuth = () =>
-  useState("adminAuth", () => ({
-    email: "",
-    username: "",
-    password: "",
-  }));
+export const adminProfile = () =>
+  useState("adminProfile", () => ({ email: "" }));

@@ -151,8 +151,10 @@ import { Dialog, DialogPanel, TransitionChild, TransitionRoot } from "@headlessu
 import { Bars3Icon, ShieldCheckIcon, XMarkIcon } from "@heroicons/vue/24/outline";
 
 const router = useRouter();
-const auth = useAdminAuth();
-if (!auth.value.email || !auth.value.username || !auth.value.password) {
+const profile = adminProfile();
+profile.value.email = await adminFetchAdminProfile();
+
+if (!profile.value.email) {
   router.push("/admin/login");
 }
 
