@@ -90,6 +90,20 @@
           >
             {{ item.name }}
           </nuxt-link>
+
+          <nuxt-link
+            to="/coffee-tip"
+            :class="[
+              route.path.startsWith('/coffee-tip') ? 'bg-gray-100' : 'hover:bg-gray-50',
+              'block rounded-md py-2 px-3  font-medium',
+            ]"
+            @click="close"
+          >
+            <div class="flex">
+              Buy us a
+              <img class="ml-2 h-8 w-auto pb-3" src="~/assets/images/coffee.png" alt="Coffee tip" />
+            </div>
+          </nuxt-link>
         </div>
       </PopoverPanel>
 
