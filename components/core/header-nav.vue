@@ -52,6 +52,18 @@
               {{ item.name }}
             </nuxt-link>
 
+            <nuxt-link
+              to="/coffee-tip"
+              class="inline-flex items-center border-b-2 px-1 pt-1 text-sm font-medium mr-4"
+              :class="
+                route.path.startsWith('/coffee-tip')
+                  ? 'border-primary-lighter'
+                  : 'border-transparent hover:border-gray-300'
+              "
+            >
+              <img class="h-8 w-auto pb-2" src="~/assets/images/coffee.png" alt="Coffee tip" />
+            </nuxt-link>
+
             <div class="flex items-center">
               <nuxt-link
                 to="/salaries/submit"

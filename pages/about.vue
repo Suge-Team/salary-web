@@ -33,7 +33,7 @@
       <h3 class="text-2xl font-medium text-gray-900">Tip</h3>
       <p class="text-gray-500 mt-2">
         Bạn có thể tip bọn mình
-        <a class="text-primary underline" href="https://ko-fi.com/sugeteam" target="_blank">một ly cafe️</a>
+        <a class="text-primary underline" href="/coffee-tip">một ly cafe️</a>
         nếu thấy trang web hữu ích ☕.
       </p>
     </div>
