@@ -7,5 +7,5 @@ export function getAdminSessionKey() {
 }
 
 export function getAdminAuthHeader() {
-  return { Authorization: `bearer ${getAdminSessionKey()}` }
+  return { Authorization: `Bearer ${getAdminSessionKey()}` }
 }
