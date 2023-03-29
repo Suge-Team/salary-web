@@ -15,6 +15,12 @@
         Liên hệ <i>contact@luongthang.net</i> hoặc gửi góp ý cho bọn mình
         <a class="text-primary underline" href="https://forms.gle/GNgG2XH5NefCJEDR6" target="_blank">tại đây</a>
       </p>
+      <p class="text-gray-500 mt-2">
+        Các bạn cũng có thể nhắn tin trực tiếp trên
+        <a class="text-primary underline" href="https://www.facebook.com/luongthang.net" target="_blank"
+          >Facebook Page</a
+        >
+      </p>
     </div>
 
     <div class="mt-4">
@@ -26,15 +32,6 @@
         >,
         <a class="text-primary underline" href="https://www.webuild.community" target="_blank">WeBuild</a>
         và một số cộng đồng IT Việt Nam khác.
-      </p>
-    </div>
-
-    <div class="mt-4">
-      <h3 class="text-2xl font-medium text-gray-900">Tip</h3>
-      <p class="text-gray-500 mt-2">
-        Bạn có thể tip bọn mình
-        <a class="text-primary underline" href="/coffee-tip">một ly cafe️</a>
-        nếu thấy trang web hữu ích ☕.
       </p>
     </div>
   </div>
