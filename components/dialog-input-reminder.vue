@@ -1,6 +1,6 @@
 <template>
   <TransitionRoot as="template" :show="showReminder">
-    <Dialog as="div" class="relative z-10">
+    <Dialog as="div" class="relative z-30">
       <TransitionChild
         as="template"
         enter="ease-out duration-300"
@@ -13,7 +13,7 @@
         <div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" />
       </TransitionChild>
 
-      <div class="fixed inset-0 z-10 overflow-y-auto">
+      <div class="fixed inset-0 z-30 overflow-y-auto">
         <div class="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
           <TransitionChild
             as="template"
@@ -54,7 +54,7 @@
 
                 <button
                   type="button"
-                  class="inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:col-start-2 sm:mt-0"
+                  class="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:col-start-2 sm:mt-0"
                   @click="snoozeInputReminder"
                 >
                   Để sau
@@ -62,7 +62,7 @@
 
                 <button
                   type="button"
-                  class="inline-flex w-full justify-center rounded-md border border-transparent bg-primary px-4 py-2 text-base font-medium text-white shadow-sm hover:bg-primary-darker focus:outline-none focus:ring-2 focus:ring-primary-lighter focus:ring-offset-2 sm:text-sm"
+                  class="mt-3 sm:mt-0 inline-flex w-full justify-center rounded-md bg-primary px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-primary-darker focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:bg-primary-lighter sm:col-start-3"
                   @click="goToTheInputPage"
                 >
                   Nhập lương
@@ -100,8 +100,13 @@ watch(route, () => {
 
   lastRoutePath = route.path;
 
+  // Already in the input path
+  if (route.path.startsWith("/salaries/submit")) {
+    return;
+  }
+
   // If `hide_input_reminder` is true, it is because the user has chosen to disable the reminder or
-  // has navigated to the input page before, so we do nothing
+  // has submitted the compensation before, so we do nothing
   if (localStorage.getItem(hideInputReminderKey) === "true") {
     return;
   }
@@ -123,12 +128,15 @@ watch(route, () => {
 
   if (newNavigationCount >= minNavigationCountToShownReminder) {
     showReminder.value = true;
+    sendGaEvent("show_reminder");
   }
 });
 
 function disableInputReminder() {
   showReminder.value = false;
   localStorage.setItem(hideInputReminderKey, true);
+
+  sendGaEvent("disable_reminder");
 }
 
 function snoozeInputReminder() {
@@ -138,6 +146,8 @@ function snoozeInputReminder() {
   // Also reset navigation count, next time we also want the user to continue using the site for awhile instead of
   // trying to show the reminder immediately
   localStorage.setItem(navigationCountKey, 0);
+
+  sendGaEvent("snooze_reminder");
 }
 
 function goToTheInputPage() {
@@ -146,5 +156,7 @@ function goToTheInputPage() {
   localStorage.setItem(hideInputReminderKey, true);
 
   router.push("/salaries/submit");
+
+  sendGaEvent("confirm_reminder");
 }
 </script>
