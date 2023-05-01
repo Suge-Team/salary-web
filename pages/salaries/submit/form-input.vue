@@ -240,6 +240,9 @@ async function submitSalary() {
     }
 
     openConfirmDialog.value = true;
+
+    localStorage.setItem(hideInputReminderKey, true);
+    sendGaEvent("submit_compensation");
   }
 }
 
