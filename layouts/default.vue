@@ -5,5 +5,7 @@
       <slot />
     </div>
     <core-footer />
+
+    <dialog-input-reminder />
   </div>
 </template>
